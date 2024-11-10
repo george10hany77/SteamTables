@@ -4,15 +4,6 @@ from STD_TYPES import *
 class SteamCalculator:
     def __init__(self):
         pass
-    #     self.val1 = None
-    #     self.val2 = None
-
-    # def set_val1(self, val1):
-    #     self.val1 = val1
-
-    # def set_val2(self, val2):
-    #     self.val2 = val2
-    
 
     def pressure_with_temperature(self, pressure: Pressure, temperature: Temperature):
         water = IAPWS97(P=pressure.pressure, T=temperature.temp + 273.15)
@@ -33,7 +24,7 @@ class SteamCalculator:
         if properties != None:
             return properties
         
-    def pressure_with_svolume(self, pressure: Pressure, s_volume: SVolume): #
+    def pressure_with_specific_volume(self, pressure: Pressure, s_volume: Specific_Volume): #
         water = IAPWS97(P=pressure.pressure, v=s_volume.s_volume)
         properties = self._get_properties(water)
         if properties != None:
@@ -57,7 +48,7 @@ class SteamCalculator:
         if properties != None:
             return properties
 
-    def temperature_with_svolume(self, temperature: Temperature, s_volume: SVolume): #
+    def temperature_with_specific_volume(self, temperature: Temperature, s_volume: Specific_Volume): #
         water = IAPWS97(T=temperature.temp + 273.15, v=s_volume.s_volume)
         properties = self._get_properties(water)
         if properties != None:
@@ -75,7 +66,7 @@ class SteamCalculator:
         if properties != None:
             return properties
 
-    def enthalpy_with_svolume(self, enthalpy: Enthalpy, s_volume: SVolume): #
+    def enthalpy_with_specific_volume(self, enthalpy: Enthalpy, s_volume: Specific_Volume): #
         water = IAPWS97(h=enthalpy.enthalpy, v=s_volume.s_volume)
         properties = self._get_properties(water)
         if properties != None:
@@ -87,7 +78,7 @@ class SteamCalculator:
         if properties != None:
             return properties
 
-    def entropy_with_svolume(self, entropy: Entropy, s_volume: SVolume): #
+    def entropy_with_specific_volume(self, entropy: Entropy, s_volume: Specific_Volume): #
         water = IAPWS97(s=entropy.entropy, v=s_volume.s_volume)
         properties = self._get_properties(water)
         if properties != None:
@@ -124,7 +115,7 @@ def main():
     temperature = Temperature(212)  # °C
     enthalpy = Enthalpy(2000.57)  # kJ/kg
     entropy = Entropy(7)  # kJ/kg·K
-    s_volume = SVolume(0.001)  # m³/kg
+    s_volume = Specific_Volume(0.001)  # m³/kg
     internal_energy = InternalEnergy(1500)  # kJ/kg
 
     calculator = SteamCalculator()

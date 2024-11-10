@@ -14,7 +14,7 @@ class Entropy:
     def __init__(self, entropy: float):
         self.entropy = entropy  # kJ/kg·K
 
-class SVolume:
+class Specific_Volume:
     def __init__(self, s_volume: float):
         self.s_volume = s_volume  # m³/kg
 
