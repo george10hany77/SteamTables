@@ -1,3 +1,9 @@
+function update(e){
+    const supers = e.textContent;
+    e.parentElement.parentElement.parentElement.querySelector("span").textContent= ""+supers
+}
+
+
 
 
 function man(e){
@@ -8,7 +14,6 @@ function man(e){
         version = "two"
     }
 
-    let type = e.className.split[" "][1];
-    console.log(type)
-    document.querySelector(".one .T").remove()
+    // let type = e.className.split[" "][1];
+    update(e);
 }
