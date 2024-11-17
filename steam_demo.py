@@ -1,5 +1,4 @@
-import iapws
-from iapws import IAPWS95
+from library.iapws95 import IAPWS95
 from STD_TYPES import *
 
 class SteamCalculator:

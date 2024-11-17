@@ -1,0 +1,12 @@
+name = "PyScript Jokes"
+packages = ["numpy","scipy",]
+[files]
+"steam_demo.py" = "steam_demo.py"
+"STD_TYPES.py" = "STD_TYPES.py"
+"library/_iapws97Constants.py" = "library/_iapws97Constants.py"
+"library/_utils.py"="library/_utils.py"
+"library/iapws95.py"= "library/iapws95.py"
+"library/iapws97.py" = "library/iapws97.py"
+"library/_iapws.py" = "library/_iapws.py"
+
+
