@@ -29,7 +29,7 @@
 
     </head>
 
-    <body>
+    <body class = "row gy-2 gx-3 align-items-center">
         <dialog id="loading">
             <h1>Loading...</h1>
         </dialog>
@@ -37,7 +37,7 @@
             <div class="mb-3 row">
                 <div class="dropdown one">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span>dropdow</span> 
+                        <span class = "one">dropdow</span> 
                     </button>
                     <ul class="dropdown-menu">
                         <li><button class="dropdown-item T" onclick="man(this)" type="button">Temperature (°C)</button></li>
@@ -55,7 +55,7 @@
             <div class="mb-3 row">
                 <div class="dropdown two">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span>dropdow</span> 
+                        <span class="two">dropdow</span> 
                     </button>
                     <ul class="dropdown-menu">
                         <li><button class="dropdown-item T" onclick="man(this)" type="button">Temperature (°C)</button></li>
@@ -81,7 +81,30 @@
 
             <button id="get_joke" py-click="get_joke">Get a new PyJoke</button>
 
-            <div id="jokes"></div>
+            <div id="jokes">
+                <!-- <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Temperature (°C)</th>
+                    <th scope="col">Pressure (MPa)</th>
+                    <th scope="col">Enthalpy (kJ/kg)</th>
+                    <th scope="col">Entropy (kJ/kg·K)</th>
+                    <th scope="col">Internal Energy (kJ/kg)</th>
+                    <th scope="col">Specific Volume (m³/kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    
+                </table> -->
+            </div>
             <script type="py" src="./test.py" config="./pyscript.toml"></script>
 
             <!-- </section> -->
