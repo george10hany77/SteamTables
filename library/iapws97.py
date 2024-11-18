@@ -91,7 +91,7 @@ from math import sqrt, log, exp
 from scipy.optimize import fsolve, newton
 import numpy as np
 
-import _iapws97Constants as Const
+from .import _iapws97Constants as Const
 from ._iapws import R, Tc, Pc, rhoc, Tt, Pt, Tb, Dipole, f_acent
 from ._iapws import _Viscosity, _ThCond, _Tension, _Dielectric, _Refractive
 from ._utils import getphase, deriv_G, _fase
