@@ -24,5 +24,5 @@ class InternalEnergy:
 
 class X():
     def __init__(self, x:float):
-        if x < 1.0 and x >= 0:
+        if x <= 1.0 and x >= 0:
             self.x = x
