@@ -53,7 +53,7 @@ def get_joke(event):
     kwargss = {type1:data1,type2:data2}
     water = IAPWS95(**kwargss)
     pydom["div#jokes"].html = f"""<div id="jokes">
-                <table class="table">
+                <table class="table-responsive">
                 <thead>
                     <tr>
                     <th scope="col">Temperature (°C)</th>
