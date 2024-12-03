@@ -3,6 +3,9 @@ packages = ["numpy","scipy",]
 [files]
 "steam_demo.py" = "steam_demo.py"
 "STD_TYPES.py" = "STD_TYPES.py"
+"Phases.py" = "Phases.py"
+"main.py" = "main.py"
+"SteamCalculator.py" = "SteamCalculator.py"
 "library/_iapws97Constants.py" = "library/_iapws97Constants.py"
 "library/_utils.py"="library/_utils.py"
 "library/iapws95.py"= "library/iapws95.py"
