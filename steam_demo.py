@@ -136,15 +136,15 @@ class SteamCalculator:
 
 
 def main():
-    pressure = Pressure(2)  # MPa
+    pressure = Pressure(0.4)  # MPa
     temperature = Temperature(205)  # °C
     enthalpy = Enthalpy(1826.6)  # kJ/kg
     entropy = Entropy(6.6430)  # kJ/kg·K
     s_volume = Specific_Volume(0.0021)  # m³/kg
-    internal_energy = InternalEnergy(873)  # kJ/kg
+    internal_energy = InternalEnergy(1450)  # kJ/kg
 
     calculator = SteamCalculator()
-    calculator.temperature_with_internal_energy(temperature=temperature, internal_energy=internal_energy)
+    calculator.pressure_with_internal_energy(pressure=pressure, internal_energy=internal_energy)
     calculator.display()
 
 
