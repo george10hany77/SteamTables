@@ -104,7 +104,7 @@ def get_joke(event):
             # Display the calculated properties
             pydom["div#jokes"].html = f"""
                 <div id="jokes">
-                    <table class="table-responsive">
+                    <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Temperature (°C)</th>
