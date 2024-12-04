@@ -1,5 +1,5 @@
 from pyweb import pydom
-from STD_TYPES import *
+from STD_TYPES import *  # Imports all the classes like Pressure, Temperature, etc.
 from steam_demo import SteamCalculator
 
 
@@ -70,8 +70,9 @@ def get_joke(event):
 
     # Prepare inputs as instances of property types
     try:
-        prop1 = globals()[type1](data1)
-        prop2 = globals()[type2](data2)
+        # Dynamically access the classes from the `STD_TYPES` module
+        prop1 = globals()["STD_TYPES"].__dict__[type1](data1)
+        prop2 = globals()["STD_TYPES"].__dict__[type2](data2)
 
         # Determine which method to call based on input properties
         result = None
