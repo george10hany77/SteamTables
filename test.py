@@ -7,17 +7,17 @@ def switch_property(typ):
     """Convert human-readable property names to internal representations."""
     match typ:
         case "Temperature (°C)":
-            return "temperature"
+            return "Temperature"
         case "Pressure (MPa)":
-            return "pressure"
+            return "Pressure"
         case "Enthalpy (kJ/kg)":
-            return "enthalpy"
+            return "Enthalpy"
         case "Entropy (kJ/kg·K)":
-            return "entropy"
+            return "Entropy"
         case "Internal Energy (kJ/kg)":
-            return "internal_energy"
+            return "InternalEnergy"
         case "Specific Volume (m³/kg)":
-            return "specific_volume"
+            return "Specific_Volume"
     return None
 
 
@@ -28,7 +28,7 @@ def get_joke(event):
     data1 = float(pydom["#in1"].value[0])
     data2 = float(pydom["#in2"].value[0])
 
-    # Convert property names to internal representations
+    # Convert property names to class names
     type1 = switch_property(type1)
     type2 = switch_property(type2)
 
@@ -43,15 +43,15 @@ def get_joke(event):
         return
 
     # Ensure temperature is converted to Kelvin
-    if type1 == "temperature":
+    if type1 == "Temperature":
         data1 += 273.15
-    if type2 == "temperature":
+    if type2 == "Temperature":
         data2 += 273.15
 
     # Convert specific volume to density (1/rho)
-    if type1 == "specific_volume":
+    if type1 == "Specific_Volume":
         data1 = 1 / data1
-    if type2 == "specific_volume":
+    if type2 == "Specific_Volume":
         data2 = 1 / data2
 
     # Check for duplicate properties
@@ -69,39 +69,39 @@ def get_joke(event):
     calculator = SteamCalculator()
 
     # Prepare inputs as instances of property types
-    prop1 = globals()[type1.capitalize()](data1)
-    prop2 = globals()[type2.capitalize()](data2)
-
-    # Determine which method to call based on input properties
     try:
+        prop1 = globals()[type1](data1)
+        prop2 = globals()[type2](data2)
+
+        # Determine which method to call based on input properties
         result = None
-        if type1 == "pressure" and type2 == "temperature":
+        if type1 == "Pressure" and type2 == "Temperature":
             result = calculator.pressure_with_temperature(prop1, prop2)
-        elif type1 == "pressure" and type2 == "enthalpy":
+        elif type1 == "Pressure" and type2 == "Enthalpy":
             result = calculator.pressure_with_enthalpy(prop1, prop2)
-        elif type1 == "pressure" and type2 == "entropy":
+        elif type1 == "Pressure" and type2 == "Entropy":
             result = calculator.pressure_with_entropy(prop1, prop2)
-        elif type1 == "pressure" and type2 == "specific_volume":
+        elif type1 == "Pressure" and type2 == "Specific_Volume":
             result = calculator.pressure_with_specific_volume(prop1, prop2)
-        elif type1 == "pressure" and type2 == "internal_energy":
+        elif type1 == "Pressure" and type2 == "InternalEnergy":
             result = calculator.pressure_with_internal_energy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "enthalpy":
+        elif type1 == "Temperature" and type2 == "Enthalpy":
             result = calculator.temperature_with_enthalpy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "entropy":
+        elif type1 == "Temperature" and type2 == "Entropy":
             result = calculator.temperature_with_entropy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "specific_volume":
+        elif type1 == "Temperature" and type2 == "Specific_Volume":
             result = calculator.temperature_with_specific_volume(prop1, prop2)
-        elif type1 == "temperature" and type2 == "internal_energy":
+        elif type1 == "Temperature" and type2 == "InternalEnergy":
             result = calculator.temperature_with_internal_energy(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "entropy":
+        elif type1 == "Enthalpy" and type2 == "Entropy":
             result = calculator.enthalpy_with_entropy(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "specific_volume":
+        elif type1 == "Enthalpy" and type2 == "Specific_Volume":
             result = calculator.enthalpy_with_specific_volume(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "internal_energy":
+        elif type1 == "Enthalpy" and type2 == "InternalEnergy":
             result = calculator.enthalpy_with_internal_energy(prop1, prop2)
-        elif type1 == "entropy" and type2 == "specific_volume":
+        elif type1 == "Entropy" and type2 == "Specific_Volume":
             result = calculator.entropy_with_specific_volume(prop1, prop2)
-        elif type1 == "entropy" and type2 == "internal_energy":
+        elif type1 == "Entropy" and type2 == "InternalEnergy":
             result = calculator.entropy_with_internal_energy(prop1, prop2)
 
         if result:
@@ -142,5 +142,3 @@ def get_joke(event):
                 </svg>
                 <div>Error: {str(e)}</div>
             </div>"""
-
-
