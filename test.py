@@ -43,15 +43,15 @@ def get_joke(event):
         return
 
     # Ensure temperature is converted to Kelvin
-    if type1 == "temperature":
+    if type1 == "Temperature (°C)":
         data1 += 273.15
-    if type2 == "temperature":
+    if type2 == "Temperature (°C)":
         data2 += 273.15
 
     # Convert specific volume to density (1/rho)
-    if type1 == "specific_volume":
+    if type1 == "Specific Volume (m³/kg)":
         data1 = 1 / data1
-    if type2 == "specific_volume":
+    if type2 == "Specific Volume (m³/kg)":
         data2 = 1 / data2
 
     # Check for duplicate properties
@@ -71,33 +71,33 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
-        if type1 == "pressure" and type2 == "temperature":
+        if type1 == "Pressure (MPa)" and type2 == "Temperature (°C)":
             result = calculator.pressure_with_temperature(prop1, prop2)
-        elif type1 == "pressure" and type2 == "enthalpy":
+        elif type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)":
             result = calculator.pressure_with_enthalpy(prop1, prop2)
-        elif type1 == "pressure" and type2 == "entropy":
+        elif type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)":
             result = calculator.pressure_with_entropy(prop1, prop2)
-        elif type1 == "pressure" and type2 == "specific_volume":
+        elif type1 == "Pressure (MPa)" and type2 == "Specific Volume (m³/kg)":
             result = calculator.pressure_with_specific_volume(prop1, prop2)
-        elif type1 == "pressure" and type2 == "internal_energy":
+        elif type1 == "Pressure (MPa)" and type2 == "Internal Energy (kJ/kg)":
             result = calculator.pressure_with_internal_energy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "enthalpy":
+        elif type1 == "Temperature (°C)" and type2 == "Enthalpy (kJ/kg)":
             result = calculator.temperature_with_enthalpy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "entropy":
+        elif type1 == "Temperature (°C)" and type2 == "Entropy (kJ/kg·K)":
             result = calculator.temperature_with_entropy(prop1, prop2)
-        elif type1 == "temperature" and type2 == "specific_volume":
+        elif type1 == "Temperature (°C)" and type2 == "Specific Volume (m³/kg)":
             result = calculator.temperature_with_specific_volume(prop1, prop2)
-        elif type1 == "temperature" and type2 == "internal_energy":
+        elif type1 == "Temperature (°C)" and type2 == "Internal Energy (kJ/kg)":
             result = calculator.temperature_with_internal_energy(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "entropy":
+        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)":
             result = calculator.enthalpy_with_entropy(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "specific_volume":
+        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Specific Volume (m³/kg)":
             result = calculator.enthalpy_with_specific_volume(prop1, prop2)
-        elif type1 == "enthalpy" and type2 == "internal_energy":
+        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Internal Energy (kJ/kg)":
             result = calculator.enthalpy_with_internal_energy(prop1, prop2)
-        elif type1 == "entropy" and type2 == "specific_volume":
+        elif type1 == "Entropy (kJ/kg·K)" and type2 == "Specific Volume (m³/kg)":
             result = calculator.entropy_with_specific_volume(prop1, prop2)
-        elif type1 == "entropy" and type2 == "internal_energy":
+        elif type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)":
             result = calculator.entropy_with_internal_energy(prop1, prop2)
 
         if result:
