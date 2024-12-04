@@ -117,12 +117,12 @@ def get_joke(event):
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{result["Temperature (°C)"]}</td>
-                            <td>{result["Pressure (MPa)"]}</td>
-                            <td>{result["Enthalpy (kJ/kg)"]}</td>
-                            <td>{result["Entropy (kJ/kg·K)"]}</td>
-                            <td>{result["Internal Energy (kJ/kg)"]}</td>
-                            <td>{result["Specific Volume (m³/kg)"]}</td>
+                            <td>{round(result["Temperature (°C)"], 3)}</td>
+                            <td>{round(result["Pressure (MPa)"], 3)}</td>
+                            <td>{round(result["Enthalpy (kJ/kg)"], 3)}</td>
+                            <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
+                            <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
+                            <td>{round(result["Specific Volume (m³/kg)"], 3)}</td>
                         </tr>
                     </tbody>
                     </table>
