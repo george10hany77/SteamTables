@@ -1,9 +1,27 @@
 from library.iapws95 import IAPWS95
 from STD_TYPES import *
-
+from Phases import *
 class SteamCalculator:
     def __init__(self):
         self.properties = None
+
+    def determine_phase_p_u(self, pressure, internal_energy):
+        sat_liquid = IAPWS95(P=pressure, x=0)  # Saturated liquid
+        sat_vapor = IAPWS95(P=pressure, x=1.0)  # Saturated vapor
+
+        # Saturated liquid and vapor internal energies (in kJ/kg)
+        u_f = sat_liquid.u  # Saturated liquid internal energy
+        u_g = sat_vapor.u  # Saturated vapor internal energy
+
+        x = (internal_energy - u_f) / (u_g - u_f)
+
+        # Determine phase
+        if internal_energy < u_f:
+            return Phases.SUBCOOLED, x
+        elif u_f <= internal_energy <= u_g:
+            return Phases.SATMIXTURE, x
+        else:
+            return Phases.SUPERHEATED, x
 
     def pressure_with_temperature(self, pressure: Pressure, temperature: Temperature):
         water = IAPWS95(P=pressure.pressure, T=temperature.temp + 273.15)
@@ -30,10 +48,14 @@ class SteamCalculator:
         if self.properties != None:
             return self.properties
         
-    def pressure_with_internal_energy(self, pressure: Pressure, internal_energy: InternalEnergy): # ?
-        water = IAPWS95(P=pressure.pressure, u=internal_energy.internal_energy)
+    def pressure_with_internal_energy(self, pressure: Pressure, internal_energy: InternalEnergy):  # ?
+        phase, x = self.determine_phase_p_u(pressure.pressure, internal_energy.internal_energy)
+        if phase == Phases.SATMIXTURE:
+            water = IAPWS95(P=pressure.pressure, x=x)
+        else:
+            water = IAPWS95(P=pressure.pressure, u=internal_energy.internal_energy)
         self.properties = self._get_properties(water)
-        if self.properties != None:
+        if self.properties is not None:
             return self.properties
 
     def temperature_with_enthalpy(self, temperature: Temperature, enthalpy: Enthalpy):
