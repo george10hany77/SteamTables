@@ -60,35 +60,49 @@ def get_joke(event):
     try:
         result = None
         parameters = {parameter1: prop1, parameter2: prop2}
-        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
-            # result = calculator.pressure_with_temperature(prop1, prop2)
+
+        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
+                type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_temperature(**parameters)
-        elif type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)":
-            result = calculator.pressure_with_enthalpy(prop1, prop2)
-        elif type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)":
-            result = calculator.pressure_with_entropy(prop1, prop2)
-        elif type1 == "Pressure (MPa)" and type2 == "Specific Volume (m³/kg)":
-            result = calculator.pressure_with_specific_volume(prop1, prop2)
-        elif type1 == "Pressure (MPa)" and type2 == "Internal Energy (kJ/kg)":
-            result = calculator.pressure_with_internal_energy(prop1, prop2)
-        elif type1 == "Temperature (°C)" and type2 == "Enthalpy (kJ/kg)":
-            result = calculator.temperature_with_enthalpy(prop1, prop2)
-        elif type1 == "Temperature (°C)" and type2 == "Entropy (kJ/kg·K)":
-            result = calculator.temperature_with_entropy(prop1, prop2)
-        elif type1 == "Temperature (°C)" and type2 == "Specific Volume (m³/kg)":
-            result = calculator.temperature_with_specific_volume(prop1, prop2)
-        elif type1 == "Temperature (°C)" and type2 == "Internal Energy (kJ/kg)":
-            result = calculator.temperature_with_internal_energy(prop1, prop2)
-        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)":
-            result = calculator.enthalpy_with_entropy(prop1, prop2)
-        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Specific Volume (m³/kg)":
-            result = calculator.enthalpy_with_specific_volume(prop1, prop2)
-        elif type1 == "Enthalpy (kJ/kg)" and type2 == "Internal Energy (kJ/kg)":
-            result = calculator.enthalpy_with_internal_energy(prop1, prop2)
-        elif type1 == "Entropy (kJ/kg·K)" and type2 == "Specific Volume (m³/kg)":
-            result = calculator.entropy_with_specific_volume(prop1, prop2)
-        elif type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)":
-            result = calculator.entropy_with_internal_energy(prop1, prop2)
+        elif (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
+                type1 == "Enthalpy (kJ/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_enthalpy(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_entropy(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_specific_volume(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_internal_energy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Enthalpy (kJ/kg)") or (
+                type1 == "Enthalpy (kJ/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_enthalpy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_entropy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_specific_volume(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_internal_energy(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_entropy(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_specific_volume(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_internal_energy(**parameters)
+        elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Entropy (kJ/kg·K)"):
+            result = calculator.entropy_with_specific_volume(**parameters)
+        elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
+            result = calculator.entropy_with_internal_energy(**parameters)
 
         if result:
             # Display the calculated properties
