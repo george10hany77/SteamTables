@@ -42,12 +42,6 @@ def get_joke(event):
             </div>"""
         return
 
-    # Ensure temperature is converted to Kelvin
-    if type1 == "Temperature (°C)":
-        prop1.temp += 273.15
-    if type2 == "Temperature (°C)":
-        prop2.temp += 273.15
-
     # Check for duplicate properties
     if type1 == type2:
         pydom["div#jokes"].html = """
