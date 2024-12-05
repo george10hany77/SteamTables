@@ -1,7 +1,7 @@
 from pyweb import pydom
 from STD_TYPES import *
 from steam_demo import SteamCalculator
-
+from iapws import IAPWS95
 
 def switch_property(typ, dat):
     """Convert human-readable property names to internal representations."""
@@ -62,7 +62,8 @@ def get_joke(event):
         parameters = {type1:prop1, type2:prop2}
         if type1 == "Pressure (MPa)" and type2 == "Temperature (°C)":
             # result = calculator.pressure_with_temperature(prop1, prop2)
-            result = calculator.pressure_with_temperature(**parameters)
+            # result = calculator.pressure_with_temperature(**parameters)
+            result = IAPWS95(**parameters)
         elif type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)":
             result = calculator.pressure_with_enthalpy(prop1, prop2)
         elif type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)":
