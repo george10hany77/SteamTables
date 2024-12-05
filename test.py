@@ -2,6 +2,7 @@ from pyweb import pydom
 from STD_TYPES import *
 from steam_demo import SteamCalculator
 
+
 def switch_property(typ, dat):
     """Convert human-readable property names to internal representations."""
     match typ:
@@ -58,7 +59,7 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
-        parameters = {"temperature":prop1, "pressure":prop2}
+        parameters = {type1:prop1, type2:prop2}
         if type1 == "Pressure (MPa)" and type2 == "Temperature (°C)":
             # result = calculator.pressure_with_temperature(prop1, prop2)
             result = calculator.pressure_with_temperature(**parameters)
