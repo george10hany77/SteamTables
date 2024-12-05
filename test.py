@@ -117,6 +117,7 @@ def get_joke(event):
                             <th scope="col">Entropy (kJ/kg·K)</th>
                             <th scope="col">Internal Energy (kJ/kg)</th>
                             <th scope="col">Specific Volume (m³/kg)</th>
+                            <th scope="col">X (Quality)</th>
                         </tr>
                     </thead>
                     <tbody>
