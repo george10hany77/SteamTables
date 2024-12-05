@@ -60,7 +60,8 @@ def get_joke(event):
     try:
         result = None
         parameters = {param1: prop1, param2: prop2}
-        if type1 == "Pressure (MPa)" or type2 == "Pressure (MPa)" and type2 == "Temperature (°C)" or type1 == "Temperature (°C)":
+        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)" or
+                type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             # result = calculator.pressure_with_temperature(prop1, prop2)
             result = calculator.pressure_with_temperature(**parameters)
         elif type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)":
