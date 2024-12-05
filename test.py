@@ -29,8 +29,8 @@ def get_joke(event):
     data2 = float(pydom["#in2"].value[0])
 
     # Convert property names to internal representations
-    prop1, param1 = switch_property(type1, data1)
-    prop2, param2 = switch_property(type2, data2)
+    prop1, parameter1 = switch_property(type1, data1)
+    prop2, parameter2 = switch_property(type2, data2)
 
     if not type1 or not type2:
         pydom["div#jokes"].html = """
@@ -59,9 +59,8 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
-        parameters = {param1: prop1, param2: prop2}
-        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)" or
-                type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
+        parameters = {parameter1: prop1, parameter2: prop2}
+        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             # result = calculator.pressure_with_temperature(prop1, prop2)
             result = calculator.pressure_with_temperature(**parameters)
         elif type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)":
