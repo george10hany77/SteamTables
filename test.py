@@ -7,17 +7,17 @@ def switch_property(typ, dat):
     """Convert human-readable property names to internal representations."""
     match typ:
         case "Temperature (°C)":
-            return Temperature(dat)
+            return Temperature(dat), "temperature"
         case "Pressure (MPa)":
-            return Pressure(dat)
+            return Pressure(dat), "pressure"
         case "Enthalpy (kJ/kg)":
-            return Enthalpy(dat)
+            return Enthalpy(dat), "enthalpy"
         case "Entropy (kJ/kg·K)":
-            return Entropy(dat)
+            return Entropy(dat), "entropy"
         case "Internal Energy (kJ/kg)":
-            return InternalEnergy(dat)
+            return InternalEnergy(dat), "internal_energy"
         case "Specific Volume (m³/kg)":
-            return Specific_Volume(dat)
+            return Specific_Volume(dat), "s_volume"
     return None
 
 
@@ -29,8 +29,8 @@ def get_joke(event):
     data2 = float(pydom["#in2"].value[0])
 
     # Convert property names to internal representations
-    prop1 = switch_property(type1, data1)
-    prop2 = switch_property(type2, data2)
+    prop1, param1 = switch_property(type1, data1)
+    prop2, param2 = switch_property(type2, data2)
 
     if not type1 or not type2:
         pydom["div#jokes"].html = """
@@ -59,7 +59,7 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
-        parameters = {type1:prop1, type2:prop2}
+        parameters = {param1: prop1, param2: prop2}
         if type1 == "Pressure (MPa)" and type2 == "Temperature (°C)":
             # result = calculator.pressure_with_temperature(prop1, prop2)
             result = calculator.pressure_with_temperature(**parameters)
@@ -128,5 +128,3 @@ def get_joke(event):
                 </svg>
                 <div>Error: {str(e)}</div>
             </div>"""
-
-
