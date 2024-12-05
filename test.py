@@ -44,15 +44,9 @@ def get_joke(event):
 
     # Ensure temperature is converted to Kelvin
     if type1 == "Temperature (°C)":
-        data1 += 273.15
+        prop1.temp += 273.15
     if type2 == "Temperature (°C)":
-        data2 += 273.15
-
-    # Convert specific volume to density (1/rho)
-    if type1 == "Specific Volume (m³/kg)":
-        data1 = 1 / data1
-    if type2 == "Specific Volume (m³/kg)":
-        data2 = 1 / data2
+        prop2.temp += 273.15
 
     # Check for duplicate properties
     if type1 == type2:
@@ -122,7 +116,7 @@ def get_joke(event):
                             <td>{round(result["Enthalpy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
-                            <td>{round(result["Specific Volume (m³/kg)"], 3)}</td>
+                            <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
                         </tr>
                     </tbody>
                     </table>
