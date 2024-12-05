@@ -145,7 +145,9 @@ def main():
 
     calculator = SteamCalculator()
     calculator.pressure_with_internal_energy(pressure=pressure, internal_energy=internal_energy)
-    calculator.display()
+    # calculator.display()
+
+    print(calculator.properties["X"])
 
 
 if __name__ == "__main__":

@@ -1,82 +1,146 @@
-import numpy as np
-from iapws import IAPWS97
+from pyweb import pydom
+from STD_TYPES import *
+from steam_demo import SteamCalculator
 
-def calculate_water_properties(v, p):
-    """
-    Calculate water/steam properties using IAPWS97 formulations
-    given specific volume (v) in m³/kg and pressure (p) in MPa.
-    
-    Parameters:
-    -----------
-    v : float
-        Specific volume in m³/kg
-    p : float
-        Pressure in MPa
-    
-    Returns:
-    --------
-    dict
-        Dictionary containing calculated properties
-    """
+
+def switch_property(typ, dat):
+    """Convert human-readable property names to internal representations."""
+    match typ:
+        case "Temperature (°C)":
+            return Temperature(dat), "temperature"
+        case "Pressure (MPa)":
+            return Pressure(dat), "pressure"
+        case "Enthalpy (kJ/kg)":
+            return Enthalpy(dat), "enthalpy"
+        case "Entropy (kJ/kg·K)":
+            return Entropy(dat), "entropy"
+        case "Internal Energy (kJ/kg)":
+            return InternalEnergy(dat), "internal_energy"
+        case "Specific Volume (m³/kg)":
+            return Specific_Volume(dat), "s_volume"
+    return None
+
+
+def get_joke(event):
+    """Handle user input and calculate steam properties."""
+    type1 = pydom["span.one"][0].content
+    type2 = pydom["span.two"][0].content
+    data1 = float(pydom["#in1"].value[0])
+    data2 = float(pydom["#in2"].value[0])
+
+    # Convert property names to internal representations
+    prop1, parameter1 = switch_property(type1, data1)
+    prop2, parameter2 = switch_property(type2, data2)
+
+    if not type1 or not type2:
+        pydom["div#jokes"].html = """
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>Invalid properties chosen</div>
+            </div>"""
+        return
+
+    # Check for duplicate properties
+    if type1 == type2:
+        pydom["div#jokes"].html = """
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>Duplicate properties chosen</div>
+            </div>"""
+        return
+
+    # Create a SteamCalculator instance
+    calculator = SteamCalculator()
+
+    # Determine which method to call based on input properties
     try:
-        # Initialize properties by guessing temperature
-        # Start with saturated temperature at given pressure as initial guess
-        sat_water = IAPWS97(P=p, x=0)
-        T_guess = sat_water.T
-        
-        # Iterate to find temperature that matches given specific volume
-        def objective(T):
-            state = IAPWS97(P=p, T=T)
-            return state.v - v
-        
-        # Simple binary search to find temperature
-        T_min, T_max = 273.15, 2273.15  # Valid temperature range
-        T = T_guess
-        
-        for _ in range(50):  # Maximum iterations
-            state = IAPWS97(P=p, T=T)
-            if abs(state.v - v) < 1e-8:
-                break
-            if state.v > v:
-                T_max = T
-            else:
-                T_min = T
-            T = (T_min + T_max) / 2
-        
-        # Calculate final state
-        state = IAPWS97(P=p, T=T)
-        
-        # Return dictionary of properties
-        properties = {
-            'temperature': state.T,          # K
-            'pressure': state.P,             # MPa
-            'specific_volume': state.v,      # m³/kg
-            'density': state.rho,            # kg/m³
-            'specific_enthalpy': state.h,    # kJ/kg
-            'specific_entropy': state.s,     # kJ/kg·K
-            'cp': state.cp,                  # kJ/kg·K
-            'cv': state.cv,                  # kJ/kg·K
-            'viscosity': state.mu,           # Pa·s
-            'thermal_conductivity': state.k,  # W/m·K
-            'phase': state.phase
-        }
-        return properties
-        
-    except Exception as e:
-        return f"Error: {str(e)}"
+        result = None
+        parameters = {parameter1: prop1, parameter2: prop2}
 
-# Example usage
-if __name__ == "__main__":
-    # Example: Calculate properties for saturated steam at 1 MPa
-    v = 0.194  # m³/kg
-    p = 1.0    # MPa
-    
-    properties = calculate_water_properties(v, p)
-    
-    if isinstance(properties, dict):
-        print("\nWater/Steam Properties:")
-        for key, value in properties.items():
-            if isinstance(value, float):
-                print(f"{key:25}: {value:.6g}")
-            else:
-                print(f"{key:25}: {value}")
+        if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
+                type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_temperature(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
+                type1 == "Enthalpy (kJ/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_enthalpy(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_entropy(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_specific_volume(**parameters)
+        elif (type1 == "Pressure (MPa)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Pressure (MPa)"):
+            result = calculator.pressure_with_internal_energy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Enthalpy (kJ/kg)") or (
+                type1 == "Enthalpy (kJ/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_enthalpy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_entropy(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_specific_volume(**parameters)
+        elif (type1 == "Temperature (°C)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Temperature (°C)"):
+            result = calculator.temperature_with_internal_energy(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)") or (
+                type1 == "Entropy (kJ/kg·K)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_entropy(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_specific_volume(**parameters)
+        elif (type1 == "Enthalpy (kJ/kg)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Enthalpy (kJ/kg)"):
+            result = calculator.enthalpy_with_internal_energy(**parameters)
+        elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Specific Volume (m³/kg)") or (
+                type1 == "Specific Volume (m³/kg)" and type2 == "Entropy (kJ/kg·K)"):
+            result = calculator.entropy_with_specific_volume(**parameters)
+        elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)") or (
+                type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
+            result = calculator.entropy_with_internal_energy(**parameters)
+
+        if result:
+            # Display the calculated properties
+            pydom["div#jokes"].html = f"""
+                <div id="jokes">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Temperature (°C)</th>
+                            <th scope="col">Pressure (MPa)</th>
+                            <th scope="col">Enthalpy (kJ/kg)</th>
+                            <th scope="col">Entropy (kJ/kg·K)</th>
+                            <th scope="col">Internal Energy (kJ/kg)</th>
+                            <th scope="col">Specific Volume (m³/kg)</th>
+                            <th scope="col">X (Quality)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{round(result["Temperature (°C)"], 3)}</td>
+                            <td>{round(result["Pressure (MPa)"], 3)}</td>
+                            <td>{round(result["Enthalpy (kJ/kg)"], 3)}</td>
+                            <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
+                            <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
+                            <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
+                            <td>{round(result["X"], 4)}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>"""
+        else:
+            raise Exception("This calculation can't be done :(")
+
+    except Exception as e:
+        pydom["div#jokes"].html = f"""
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>Error: {str(e)}</div>
+            </div>"""
