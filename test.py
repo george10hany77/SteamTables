@@ -127,6 +127,7 @@ def get_joke(event):
                             <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
+                            <td>{round(result["X"], 4)}</td>
                         </tr>
                     </tbody>
                     </table>
