@@ -1,6 +1,6 @@
 from pyweb import pydom
 from STD_TYPES import *
-from steam_demo import SteamCalculator
+from steam_demo import *
 
 
 def switch_property(typ, dat):
