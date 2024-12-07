@@ -241,7 +241,8 @@ def main():
     print(type(temperature))
 
     phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
-    print(f"Phase: {phase.name}, x: {x}")
+    # print(f"Phase: {phase.name}, x: {x}")
+    print(f"Phase: {str(phase.name)}")
 
 
 if __name__ == "__main__":

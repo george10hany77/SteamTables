@@ -132,7 +132,7 @@ def get_joke(event):
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
                             <td>{round(result["X"], 4)}</td>
-                            <td>{phase.name}</td>
+                            <td>{str(phase.name)}</td>
                         </tr>
                     </tbody>
                     </table>
