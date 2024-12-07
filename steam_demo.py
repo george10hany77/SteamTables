@@ -8,44 +8,66 @@ from Phases import *
 # the second property must NOT be temperature or
 # pressure as they are the same in saturated mixture you will not be able to calculate 'x'
 
+def determine_key(typ):
+    """Convert human-readable property names to internal representations."""
+    match type(typ):
+        case Temperature():
+            return "T"
+        case Pressure():
+            return "P"
+        case Enthalpy():
+            return "h"
+        case Entropy():
+            return "s"
+        case InternalEnergy():
+            return "u"
+        case Specific_Volume():
+            return "rho"
+    return None
 
-def determine_phase(key_prop_1, prop_1, prop_2):
+
+def determine_phase(prop_1, prop_2):
     prop_1_val = prop_1.data
+    prop_2_val = prop_2.data
+    key_prop_1 = determine_key(prop_1)
+
     if key_prop_1 == "T":
         prop_1_val += 273.15
-    param = {key_prop_1: prop_1_val, "x": 0.0}
-    sat_liquid = IAPWS95(**param)  # Saturated liquid
+    elif key_prop_1 == "rho":
+        prop_1_val = 1 / prop_1_val
+
+    param_1 = {key_prop_1: prop_1_val, "x": 0.0}
+    sat_liquid = IAPWS95(**param_1)  # Saturated liquid
     param_2 = {key_prop_1: prop_1_val, "x": 1.0}
     sat_vapor = IAPWS95(**param_2)  # Saturated vapor
 
-    if isinstance(prop_2, Temperature):
-        p_f = sat_liquid.T - 273.15
-        p_g = sat_vapor.T - 273.15
-        prop_2_val = prop_2.data
-        # raise Exception("Don't use temperature !")
-    elif isinstance(prop_2, Pressure):
-        p_f = sat_liquid.P
-        p_g = sat_vapor.P
-        prop_2_val = prop_2.data
-        # raise Exception("Don't use pressure !")
-    elif isinstance(prop_2, Enthalpy):
-        p_f = sat_liquid.h
-        p_g = sat_vapor.h
-        prop_2_val = prop_2.data
-    elif isinstance(prop_2, Entropy):
-        p_f = sat_liquid.s
-        p_g = sat_vapor.s
-        prop_2_val = prop_2.data
-    elif isinstance(prop_2, Specific_Volume):
-        p_f = sat_liquid.v
-        p_g = sat_vapor.v
-        prop_2_val = prop_2.data
-    elif isinstance(prop_2, InternalEnergy):
-        p_f = sat_liquid.u
-        p_g = sat_vapor.u
-        prop_2_val = prop_2.data
-    else:
-        raise Exception("pass a valid property type")
+    match type(prop_2):
+        case Temperature():
+            p_f = sat_liquid.T - 273.15
+            p_g = sat_vapor.T - 273.15
+
+        case Pressure():
+            p_f = sat_liquid.P
+            p_g = sat_vapor.P
+
+        case Enthalpy():
+            p_f = sat_liquid.h
+            p_g = sat_vapor.h
+
+        case Entropy():
+            p_f = sat_liquid.s
+            p_g = sat_vapor.s
+
+        case Specific_Volume():
+            p_f = sat_liquid.v
+            p_g = sat_vapor.v
+
+        case InternalEnergy():
+            p_f = sat_liquid.u
+            p_g = sat_vapor.u
+
+        case _:
+            raise Exception("pass a valid property type")
 
     x = None
 
@@ -119,7 +141,7 @@ class SteamCalculator:
 
     def pressure_with_internal_energy(self, pressure: Pressure, internal_energy: InternalEnergy):  # ?
         # phase, x = self.determine_phase_p_u(pressure.pressure, internal_energy.internal_energy)
-        phase, x = determine_phase(key_prop_1="P", prop_1=pressure, prop_2=internal_energy)
+        phase, x = determine_phase(prop_1=pressure, prop_2=internal_energy)
         if phase == Phases.SATMIXTURE:
             water = IAPWS95(P=pressure.data, x=x)
         else:
@@ -216,7 +238,7 @@ def main():
     calculator.pressure_with_temperature(pressure=pressure, temperature=temperature)
     calculator.display()
 
-    phase, x = determine_phase(key_prop_1="T", prop_1=temperature, prop_2=pressure)
+    phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
     print(f"Phase: {phase}, x: {x}")
 
 
