@@ -9,7 +9,8 @@ from Phases import *
 # pressure as they are the same in saturated mixture you will not be able to calculate 'x'
 
 
-def determine_phase(key_prop_1, prop_1_val, prop_2):
+def determine_phase(key_prop_1, prop_1, prop_2):
+    prop_1_val = prop_1.data
     if key_prop_1 == "T":
         prop_1_val += 273.15
     param = {key_prop_1: prop_1_val, "x": 0.0}
@@ -20,29 +21,29 @@ def determine_phase(key_prop_1, prop_1_val, prop_2):
     if isinstance(prop_2, Temperature):
         p_f = sat_liquid.T - 273.15
         p_g = sat_vapor.T - 273.15
-        prop_2_val = prop_2.temp
+        prop_2_val = prop_2.data
         # raise Exception("Don't use temperature !")
     elif isinstance(prop_2, Pressure):
         p_f = sat_liquid.P
         p_g = sat_vapor.P
-        prop_2_val = prop_2.pressure
+        prop_2_val = prop_2.data
         # raise Exception("Don't use pressure !")
     elif isinstance(prop_2, Enthalpy):
         p_f = sat_liquid.h
         p_g = sat_vapor.h
-        prop_2_val = prop_2.enthalpy
+        prop_2_val = prop_2.data
     elif isinstance(prop_2, Entropy):
         p_f = sat_liquid.s
         p_g = sat_vapor.s
-        prop_2_val = prop_2.entropy
+        prop_2_val = prop_2.data
     elif isinstance(prop_2, Specific_Volume):
         p_f = sat_liquid.v
         p_g = sat_vapor.v
-        prop_2_val = prop_2.s_volume
+        prop_2_val = prop_2.data
     elif isinstance(prop_2, InternalEnergy):
         p_f = sat_liquid.u
         p_g = sat_vapor.u
-        prop_2_val = prop_2.internal_energy
+        prop_2_val = prop_2.data
     else:
         raise Exception("pass a valid property type")
 
@@ -69,113 +70,114 @@ def determine_phase(key_prop_1, prop_1_val, prop_2):
             return Phases.SUPERHEATED, x
 
 
+def determine_phase_p_u(pressure, internal_energy):
+    sat_liquid = IAPWS95(P=pressure, x=0)  # Saturated liquid
+    sat_vapor = IAPWS95(P=pressure, x=1.0)  # Saturated vapor
+
+    # Saturated liquid and vapor internal energies (in kJ/kg)
+    u_f = sat_liquid.u  # Saturated liquid internal energy
+    u_g = sat_vapor.u  # Saturated vapor internal energy
+
+    x = (internal_energy - u_f) / (u_g - u_f)
+
+    # Determine phase
+    if internal_energy < u_f:
+        return Phases.SUBCOOLED, x
+    elif u_f <= internal_energy <= u_g:
+        return Phases.SATMIXTURE, x
+    else:
+        return Phases.SUPERHEATED, x
+
+
 class SteamCalculator:
     def __init__(self):
         self.properties = None
 
-    def determine_phase_p_u(self, pressure, internal_energy):
-        sat_liquid = IAPWS95(P=pressure, x=0)  # Saturated liquid
-        sat_vapor = IAPWS95(P=pressure, x=1.0)  # Saturated vapor
-
-        # Saturated liquid and vapor internal energies (in kJ/kg)
-        u_f = sat_liquid.u  # Saturated liquid internal energy
-        u_g = sat_vapor.u  # Saturated vapor internal energy
-
-        x = (internal_energy - u_f) / (u_g - u_f)
-
-        # Determine phase
-        if internal_energy < u_f:
-            return Phases.SUBCOOLED, x
-        elif u_f <= internal_energy <= u_g:
-            return Phases.SATMIXTURE, x
-        else:
-            return Phases.SUPERHEATED, x
-
     def pressure_with_temperature(self, pressure: Pressure, temperature: Temperature):
-        water = IAPWS95(P=pressure.pressure, T=temperature.temp + 273.15)
+        water = IAPWS95(P=pressure.data, T=temperature.data + 273.15)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def pressure_with_enthalpy(self, pressure: Pressure, enthalpy: Enthalpy):
-        water = IAPWS95(P=pressure.pressure, h=enthalpy.enthalpy)
+        water = IAPWS95(P=pressure.data, h=enthalpy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def pressure_with_entropy(self, pressure: Pressure, entropy: Entropy):
-        water = IAPWS95(P=pressure.pressure, s=entropy.entropy)
+        water = IAPWS95(P=pressure.data, s=entropy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def pressure_with_specific_volume(self, pressure: Pressure, s_volume: Specific_Volume):  # ?
-        water = IAPWS95(P=pressure.pressure, rho=1 / s_volume.s_volume)
+        water = IAPWS95(P=pressure.data, rho=1 / s_volume.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def pressure_with_internal_energy(self, pressure: Pressure, internal_energy: InternalEnergy):  # ?
         # phase, x = self.determine_phase_p_u(pressure.pressure, internal_energy.internal_energy)
-        phase, x = determine_phase(key_prop_1="P", prop_1_val=pressure.pressure, prop_2=internal_energy)
+        phase, x = determine_phase(key_prop_1="P", prop_1=pressure, prop_2=internal_energy)
         if phase == Phases.SATMIXTURE:
-            water = IAPWS95(P=pressure.pressure, x=x)
+            water = IAPWS95(P=pressure.data, x=x)
         else:
-            water = IAPWS95(P=pressure.pressure, u=internal_energy.internal_energy)
+            water = IAPWS95(P=pressure.data, u=internal_energy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def temperature_with_enthalpy(self, temperature: Temperature, enthalpy: Enthalpy):
-        water = IAPWS95(T=temperature.temp + 273.15, h=enthalpy.enthalpy)
+        water = IAPWS95(T=temperature.data + 273.15, h=enthalpy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def temperature_with_entropy(self, temperature: Temperature, entropy: Entropy):
-        water = IAPWS95(T=temperature.temp + 273.15, s=entropy.entropy)
+        water = IAPWS95(T=temperature.data + 273.15, s=entropy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def temperature_with_specific_volume(self, temperature: Temperature, s_volume: Specific_Volume):  # ?
-        water = IAPWS95(T=temperature.temp + 273.15, rho=1 / s_volume.s_volume)
+        water = IAPWS95(T=temperature.data + 273.15, rho=1 / s_volume.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def temperature_with_internal_energy(self, temperature: Temperature, internal_energy: InternalEnergy):  # ?
-        water = IAPWS95(T=temperature.temp + 273.15, u=internal_energy.internal_energy)
+        water = IAPWS95(T=temperature.data + 273.15, u=internal_energy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def enthalpy_with_entropy(self, enthalpy: Enthalpy, entropy: Entropy):
-        water = IAPWS95(h=enthalpy.enthalpy, s=entropy.entropy)
+        water = IAPWS95(h=enthalpy.data, s=entropy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def enthalpy_with_specific_volume(self, enthalpy: Enthalpy, s_volume: Specific_Volume):  # ?
-        water = IAPWS95(h=enthalpy.enthalpy, rho=1 / s_volume.s_volume)
+        water = IAPWS95(h=enthalpy.data, rho=1 / s_volume.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def enthalpy_with_internal_energy(self, enthalpy: Enthalpy, internal_energy: InternalEnergy):  # ?
-        water = IAPWS95(h=enthalpy.enthalpy, u=internal_energy.internal_energy)
+        water = IAPWS95(h=enthalpy.data, u=internal_energy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def entropy_with_specific_volume(self, entropy: Entropy, s_volume: Specific_Volume):  # ?
-        water = IAPWS95(s=entropy.entropy, rho=1 / s_volume.s_volume)
+        water = IAPWS95(s=entropy.data, rho=1 / s_volume.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
 
     def entropy_with_internal_energy(self, entropy: Entropy, internal_energy: InternalEnergy):  # ?
-        water = IAPWS95(s=entropy.entropy, u=internal_energy.internal_energy)
+        water = IAPWS95(s=entropy.data, u=internal_energy.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
@@ -214,8 +216,9 @@ def main():
     calculator.pressure_with_temperature(pressure=pressure, temperature=temperature)
     calculator.display()
 
-    phase, x = determine_phase(key_prop_1="T", prop_1_val=temperature.temp, prop_2=pressure)
+    phase, x = determine_phase(key_prop_1="T", prop_1=temperature, prop_2=pressure)
     print(f"Phase: {phase}, x: {x}")
+
 
 if __name__ == "__main__":
     main()
