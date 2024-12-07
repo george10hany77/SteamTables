@@ -10,7 +10,7 @@ from Phases import *
 
 def determine_key(typ):
     """Convert human-readable property names to internal representations."""
-    match type(typ):
+    match typ:
         case Temperature():
             return "T"
         case Pressure():
@@ -41,7 +41,7 @@ def determine_phase(prop_1, prop_2):
     param_2 = {key_prop_1: prop_1_val, "x": 1.0}
     sat_vapor = IAPWS95(**param_2)  # Saturated vapor
 
-    match type(prop_2):
+    match prop_2:
         case Temperature():
             p_f = sat_liquid.T - 273.15
             p_g = sat_vapor.T - 273.15
@@ -237,6 +237,8 @@ def main():
     calculator = SteamCalculator()
     calculator.pressure_with_temperature(pressure=pressure, temperature=temperature)
     calculator.display()
+
+    print(type(temperature))
 
     phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
     print(f"Phase: {phase}, x: {x}")
