@@ -104,7 +104,7 @@ def get_joke(event):
                 type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
             result = calculator.entropy_with_internal_energy(**parameters)
 
-        phase = determine_phase(prop1, prop2)
+        phase, x = determine_phase(prop1, prop2)
 
         if result:
             # Display the calculated properties
