@@ -89,6 +89,11 @@ def determine_phase(prop_1, prop_2):
 
     x = None
 
+    # to handle the case when the data is not sufficient to find sat. states from prop 1
+    # ,so we switch the order using this recursive call
+    if p_f is None or p_g is None:
+        return determine_phase(prop_2, prop_1)
+
     if (p_g - p_f) > 0:
         x = (prop_2_val - p_f) / (p_g - p_f)
 
@@ -258,7 +263,7 @@ def main():
     calculator.pressure_with_enthalpy(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
+    phase, x = determine_phase(prop_1=enthalpy, prop_2=pressure)
     print(f"Phase: {phase.name}")
 
 
