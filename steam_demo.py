@@ -26,24 +26,6 @@ def determine_key(typ):
     return None
 
 
-def switch_property(typ, dat):
-    """Convert human-readable property names to internal representations."""
-    match typ:
-        case "Temperature (°C)":
-            return Temperature(dat), "temperature"
-        case "Pressure (MPa)":
-            return Pressure(dat), "pressure"
-        case "Enthalpy (kJ/kg)":
-            return Enthalpy(dat), "enthalpy"
-        case "Entropy (kJ/kg·K)":
-            return Entropy(dat), "entropy"
-        case "Internal Energy (kJ/kg)":
-            return InternalEnergy(dat), "internal_energy"
-        case "Specific Volume (m³/kg)":
-            return Specific_Volume(dat), "s_volume"
-    return None
-
-
 def determine_phase(prop_1, prop_2):
     return determine_phase_helper(prop_1, prop_2, False)
 
@@ -63,10 +45,14 @@ def determine_phase_helper(prop_1, prop_2, flag):
     param_2 = {key_prop_1: prop_1_val, "x": 1.0}
     sat_vapor = IAPWS95(**param_2)  # Saturated vapor
 
+    p_f = None
+    p_g = None
+    x = None
     match prop_2:
         case Temperature():
-            p_f = sat_liquid.T - 273.15
-            p_g = sat_vapor.T - 273.15
+            if sat_liquid.T and sat_vapor.T:
+                p_f = sat_liquid.T - 273.15
+                p_g = sat_vapor.T - 273.15
 
         case Pressure():
             p_f = sat_liquid.P
@@ -90,8 +76,6 @@ def determine_phase_helper(prop_1, prop_2, flag):
 
         case _:
             raise Exception("pass a valid property type")
-
-    x = None
 
     # to handle the case when the data is not sufficient to find sat. states from prop 1
     # ,so we switch the order using this recursive call
@@ -121,25 +105,6 @@ def determine_phase_helper(prop_1, prop_2, flag):
             return Phases.SATMIXTURE, x
         else:
             return Phases.SUPERHEATED, x
-
-
-def determine_phase_p_u(pressure, internal_energy):
-    sat_liquid = IAPWS95(P=pressure, x=0)  # Saturated liquid
-    sat_vapor = IAPWS95(P=pressure, x=1.0)  # Saturated vapor
-
-    # Saturated liquid and vapor internal energies (in kJ/kg)
-    u_f = sat_liquid.u  # Saturated liquid internal energy
-    u_g = sat_vapor.u  # Saturated vapor internal energy
-
-    x = (internal_energy - u_f) / (u_g - u_f)
-
-    # Determine phase
-    if internal_energy < u_f:
-        return Phases.SUBCOOLED, x
-    elif u_f <= internal_energy <= u_g:
-        return Phases.SATMIXTURE, x
-    else:
-        return Phases.SUPERHEATED, x
 
 
 class SteamCalculator:
@@ -275,7 +240,7 @@ def main():
     calculator.pressure_with_enthalpy(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=entropy, prop_2=internal_energy)
+    phase, x = determine_phase(prop_1=enthalpy, prop_2=temperature)
     print(f"Phase: {phase.name}")
 
 

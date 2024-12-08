@@ -2,6 +2,24 @@ from pyweb import pydom
 from steam_demo import *
 
 
+def switch_property(typ, dat):
+    """Convert human-readable property names to internal representations."""
+    match typ:
+        case "Temperature (°C)":
+            return Temperature(dat), "temperature"
+        case "Pressure (MPa)":
+            return Pressure(dat), "pressure"
+        case "Enthalpy (kJ/kg)":
+            return Enthalpy(dat), "enthalpy"
+        case "Entropy (kJ/kg·K)":
+            return Entropy(dat), "entropy"
+        case "Internal Energy (kJ/kg)":
+            return InternalEnergy(dat), "internal_energy"
+        case "Specific Volume (m³/kg)":
+            return Specific_Volume(dat), "s_volume"
+    return None
+
+
 def get_joke(event):
     """Handle user input and calculate steam properties."""
     type1 = pydom["span.one"][0].content
