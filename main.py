@@ -46,7 +46,7 @@ def get_joke(event):
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
                 type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_temperature(**parameters)
-        if (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
+        elif (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
                 type1 == "Enthalpy (kJ/kg)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_enthalpy(**parameters)
         elif (type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)") or (
@@ -86,7 +86,8 @@ def get_joke(event):
                 type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
             result = calculator.entropy_with_internal_energy(**parameters)
 
-        phase, x = determine_phase(prop1, prop2)
+        # phase, x = determine_phase(prop1, prop2)
+        phase, x = (0, 0)
 
         if result:
             # Display the calculated properties
