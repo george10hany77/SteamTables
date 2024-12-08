@@ -120,7 +120,6 @@ def get_joke(event):
                             <th scope="col">Internal Energy (kJ/kg)</th>
                             <th scope="col">Specific Volume (m³/kg)</th>
                             <th scope="col">X (Quality)</th>
-                            # <th scope="col">Phase</th>
                         </tr>
                     </thead>
                     <tbody>
