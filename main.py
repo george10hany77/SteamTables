@@ -112,16 +112,17 @@ def get_joke(event):
                 phase = Phases.NOTDETERMINED
 
         except:
-            x = result["X"]
-            if x:  # if there was an error but there is a value calculated
-                if x >= 1:
-                    phase = Phases.SUPERHEATED
-                elif x <= 0:
-                    phase = Phases.SUBCOOLED
-                elif 1 > x > 0:
-                    phase = Phases.SATMIXTURE
-                else:
-                    phase = Phases.NOTDETERMINED
+            if result:
+                x = result["X"]
+                if x:  # if there was an error but there is a value calculated
+                    if x >= 1:
+                        phase = Phases.SUPERHEATED
+                    elif x <= 0:
+                        phase = Phases.SUBCOOLED
+                    elif 1 > x > 0:
+                        phase = Phases.SATMIXTURE
+                    else:
+                        phase = Phases.NOTDETERMINED
 
         if result:
             # Display the calculated properties
