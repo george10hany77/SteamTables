@@ -1,5 +1,5 @@
 from pyweb import pydom
-from steam_demo import *
+from SteamCalculator import *
 
 
 def switch_property(typ, dat):
