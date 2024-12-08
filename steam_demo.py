@@ -35,15 +35,24 @@ def determine_phase_helper(prop_1, prop_2, flag):
     prop_2_val = prop_2.data
     key_prop_1 = determine_key(prop_1)
 
+    sat_liquid = None
+    sat_vapor = None
+
     if key_prop_1 == "T":
         prop_1_val += 273.15
     elif key_prop_1 == "rho":
         prop_1_val = 1 / prop_1_val
 
-    param_1 = {key_prop_1: prop_1_val, "x": 0.0}
-    sat_liquid = IAPWS95(**param_1)  # Saturated liquid
-    param_2 = {key_prop_1: prop_1_val, "x": 1.0}
-    sat_vapor = IAPWS95(**param_2)  # Saturated vapor
+    try:
+        param_1 = {key_prop_1: prop_1_val, "x": 0.0}
+        sat_liquid = IAPWS95(**param_1)  # Saturated liquid
+        param_2 = {key_prop_1: prop_1_val, "x": 1.0}
+        sat_vapor = IAPWS95(**param_2)  # Saturated vapor
+    except:
+        if flag:
+            raise Exception("these properties cannot determine the phase !")
+        flag = True
+        return determine_phase_helper(prop_2, prop_1, flag)
 
     p_f = None
     p_g = None
@@ -85,11 +94,6 @@ def determine_phase_helper(prop_1, prop_2, flag):
     # to handle the case when the data is not sufficient to find sat. states from prop 1
     # ,so we switch the order using this recursive call
     # wrapping the function inside a helper function to prevent the stack overflow
-    if p_f is None or p_g is None:
-        if flag:
-            raise Exception("these properties cannot determine the phase !")
-        flag = True
-        return determine_phase_helper(prop_2, prop_1, flag)
 
     if (p_g - p_f) > 0:
         x = (prop_2_val - p_f) / (p_g - p_f)
@@ -232,8 +236,8 @@ class SteamCalculator:
 
 
 def main():
-    pressure = Pressure(1)  # MPa
-    temperature = Temperature(500)  # °C
+    pressure = Pressure(50)  # MPa
+    temperature = Temperature(100)  # °C
     enthalpy = Enthalpy(1826.6)  # kJ/kg
     entropy = Entropy(6.6430)  # kJ/kg·K
     s_volume = Specific_Volume(0.00061)  # m³/kg
@@ -245,7 +249,7 @@ def main():
     calculator.pressure_with_temperature(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
+    phase, x = determine_phase(prop_1=pressure, prop_2=temperature)
     print(f"Phase: {phase.name}")
 
 

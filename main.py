@@ -59,7 +59,6 @@ def get_joke(event):
     try:
         result = None
         phase = None
-        x = None
         parameters = {parameter1: prop1, parameter2: prop2}
 
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
@@ -104,19 +103,21 @@ def get_joke(event):
         elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)") or (
                 type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
             result = calculator.entropy_with_internal_energy(**parameters)
+
         try:
-            phase, x = determine_phase(prop1, prop2)
-        except NotImplementedError:
+            phase = determine_phase(prop1, prop2)
+            phase = phase[0]  # getting the phase from the tuple
+        except:
             x = result["X"]
             if x:  # if there was an error but there is a value calculated
                 if x >= 1:
                     phase = Phases.SUPERHEATED
                 elif x <= 0:
                     phase = Phases.SUBCOOLED
-                else:
+                elif 1 > x > 0:
                     phase = Phases.SATMIXTURE
-        except:
-            phase = Phases.NOTDETERMINED
+                else:
+                    phase = Phases.NOTDETERMINED
 
         if result:
             # Display the calculated properties
