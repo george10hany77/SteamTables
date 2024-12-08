@@ -123,6 +123,8 @@ def get_joke(event):
                         phase = Phases.SATMIXTURE
                     else:
                         phase = Phases.NOTDETERMINED
+            else:
+                phase = Phases.NOTDETERMINED
 
         if result:
             # Display the calculated properties
