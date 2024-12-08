@@ -94,6 +94,9 @@ def determine_phase_helper(prop_1, prop_2, flag):
         case _:
             raise Exception("pass a valid property type")
 
+    if not p_f or not p_g:
+        raise Exception("p_f and p_g are not valid")
+
     if (p_g - p_f) > 0:
         x = (prop_2_val - p_f) / (p_g - p_f)
 
@@ -248,7 +251,7 @@ def main():
     calculator.temperature_with_internal_energy(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=pressure, prop_2=temperature)
+    phase, x = determine_phase(prop_1=internal_energy, prop_2=temperature)
     print(f"Phase: {phase.name}")
 
 
