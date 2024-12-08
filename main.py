@@ -87,7 +87,7 @@ def get_joke(event):
             result = calculator.entropy_with_internal_energy(**parameters)
 
         # phase, x = determine_phase(prop1, prop2)
-        phase, x = (0, 0)
+        phase, x = (Phases.SATMIXTURE, 0)
 
         if result:
             # Display the calculated properties
@@ -115,7 +115,7 @@ def get_joke(event):
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
                             <td>{round(result["X"], 4)}</td>
-                            <td>{str(phase)}</td>
+                            <td>{str(phase.name)}</td>
                         </tr>
                     </tbody>
                     </table>
