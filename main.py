@@ -108,6 +108,9 @@ def get_joke(event):
             returned_phase_x = determine_phase(prop1, prop2)
             if returned_phase_x:
                 phase = returned_phase_x[0]  # getting the phase from the tuple
+            else:
+                phase = Phases.NOTDETERMINED
+
         except:
             x = result["X"]
             if x:  # if there was an error but there is a value calculated
