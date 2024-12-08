@@ -171,8 +171,12 @@ class SteamCalculator:
             return self.properties
 
     def pressure_with_internal_energy(self, pressure: Pressure, internal_energy: InternalEnergy):  # ?
-        # phase, x = self.determine_phase_p_u(pressure.pressure, internal_energy.internal_energy)
-        phase, x = determine_phase(prop_1=pressure, prop_2=internal_energy)
+        try:
+            # phase, x = self.determine_phase_p_u(pressure.pressure, internal_energy.internal_energy)
+            phase, x = determine_phase(prop_1=pressure, prop_2=internal_energy)
+        except:
+            # I didn't pass as we need to find x to accurately determine U
+            return None
         if phase == Phases.SATMIXTURE:
             water = IAPWS95(P=pressure.data, x=x)
         else:
