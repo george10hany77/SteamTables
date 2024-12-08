@@ -126,7 +126,7 @@ def get_joke(event):
             else:
                 phase = Phases.NOTDETERMINED
 
-        if result:
+        if result and phase:
             # Display the calculated properties
             pydom["div#jokes"].html = f"""
                 <div id="jokes">
