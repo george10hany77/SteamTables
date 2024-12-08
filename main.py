@@ -105,8 +105,9 @@ def get_joke(event):
             result = calculator.entropy_with_internal_energy(**parameters)
 
         try:
-            phase = determine_phase(prop1, prop2)
-            phase = phase[0]  # getting the phase from the tuple
+            returned_phase_x = determine_phase(prop1, prop2)
+            if returned_phase_x:
+                phase = returned_phase_x[0]  # getting the phase from the tuple
         except:
             x = result["X"]
             if x:  # if there was an error but there is a value calculated

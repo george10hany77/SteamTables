@@ -49,6 +49,9 @@ def determine_phase_helper(prop_1, prop_2, flag):
         param_2 = {key_prop_1: prop_1_val, "x": 1.0}
         sat_vapor = IAPWS95(**param_2)  # Saturated vapor
     except:
+        # to handle the case when the data is not sufficient to find sat. states from prop 1
+        # ,so we switch the order using this recursive call
+        # wrapping the function inside a helper function to prevent the stack overflow
         if flag:
             raise Exception("these properties cannot determine the phase !")
         flag = True
@@ -90,10 +93,6 @@ def determine_phase_helper(prop_1, prop_2, flag):
 
         case _:
             raise Exception("pass a valid property type")
-
-    # to handle the case when the data is not sufficient to find sat. states from prop 1
-    # ,so we switch the order using this recursive call
-    # wrapping the function inside a helper function to prevent the stack overflow
 
     if (p_g - p_f) > 0:
         x = (prop_2_val - p_f) / (p_g - p_f)
