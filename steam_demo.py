@@ -55,24 +55,29 @@ def determine_phase_helper(prop_1, prop_2, flag):
                 p_g = sat_vapor.T - 273.15
 
         case Pressure():
-            p_f = sat_liquid.P
-            p_g = sat_vapor.P
+            if sat_liquid.P and sat_vapor.P:
+                p_f = sat_liquid.P
+                p_g = sat_vapor.P
 
         case Enthalpy():
-            p_f = sat_liquid.h
-            p_g = sat_vapor.h
+            if sat_liquid.h and sat_vapor.h:
+                p_f = sat_liquid.h
+                p_g = sat_vapor.h
 
         case Entropy():
-            p_f = sat_liquid.s
-            p_g = sat_vapor.s
+            if sat_liquid.s and sat_vapor.s:
+                p_f = sat_liquid.s
+                p_g = sat_vapor.s
 
         case Specific_Volume():
-            p_f = sat_liquid.v
-            p_g = sat_vapor.v
+            if sat_liquid.v and sat_vapor.v:
+                p_f = sat_liquid.v
+                p_g = sat_vapor.v
 
         case InternalEnergy():
-            p_f = sat_liquid.u
-            p_g = sat_vapor.u
+            if sat_liquid.u and sat_vapor.u:
+                p_f = sat_liquid.u
+                p_g = sat_vapor.u
 
         case _:
             raise Exception("pass a valid property type")
@@ -227,20 +232,20 @@ class SteamCalculator:
 
 
 def main():
-    pressure = Pressure(0.4)  # MPa
-    temperature = Temperature(180)  # °C
+    pressure = Pressure(1)  # MPa
+    temperature = Temperature(500)  # °C
     enthalpy = Enthalpy(1826.6)  # kJ/kg
     entropy = Entropy(6.6430)  # kJ/kg·K
     s_volume = Specific_Volume(0.00061)  # m³/kg
     internal_energy = InternalEnergy(609)  # kJ/kg
 
-    param = {"enthalpy": enthalpy, "pressure": pressure}
+    param = {"temperature": temperature, "pressure": pressure}
 
     calculator = SteamCalculator()
-    calculator.pressure_with_enthalpy(**param)
+    calculator.pressure_with_temperature(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=enthalpy, prop_2=temperature)
+    phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
     print(f"Phase: {phase.name}")
 
 

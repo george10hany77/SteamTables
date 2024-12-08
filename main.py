@@ -58,6 +58,8 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
+        phase = None
+        x = None
         parameters = {parameter1: prop1, parameter2: prop2}
 
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
@@ -104,6 +106,15 @@ def get_joke(event):
             result = calculator.entropy_with_internal_energy(**parameters)
         try:
             phase, x = determine_phase(prop1, prop2)
+        except NotImplementedError:
+            x = result["X"]
+            if x:  # if there was an error but there is a value calculated
+                if x >= 1:
+                    phase = Phases.SUPERHEATED
+                elif x <= 0:
+                    phase = Phases.SUBCOOLED
+                else:
+                    phase = Phases.SATMIXTURE
         except:
             phase = Phases.NOTDETERMINED
 
