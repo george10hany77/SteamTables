@@ -3,24 +3,6 @@ from STD_TYPES import *
 from steam_demo import *
 
 
-def switch_property(typ, dat):
-    """Convert human-readable property names to internal representations."""
-    match typ:
-        case "Temperature (°C)":
-            return Temperature(dat), "temperature"
-        case "Pressure (MPa)":
-            return Pressure(dat), "pressure"
-        case "Enthalpy (kJ/kg)":
-            return Enthalpy(dat), "enthalpy"
-        case "Entropy (kJ/kg·K)":
-            return Entropy(dat), "entropy"
-        case "Internal Energy (kJ/kg)":
-            return InternalEnergy(dat), "internal_energy"
-        case "Specific Volume (m³/kg)":
-            return Specific_Volume(dat), "s_volume"
-    return None
-
-
 def get_joke(event):
     """Handle user input and calculate steam properties."""
     type1 = pydom["span.one"][0].content
@@ -64,7 +46,7 @@ def get_joke(event):
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
                 type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_temperature(**parameters)
-        elif (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
+        if (type1 == "Pressure (MPa)" and type2 == "Enthalpy (kJ/kg)") or (
                 type1 == "Enthalpy (kJ/kg)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_enthalpy(**parameters)
         elif (type1 == "Pressure (MPa)" and type2 == "Entropy (kJ/kg·K)") or (

@@ -26,6 +26,24 @@ def determine_key(typ):
     return None
 
 
+def switch_property(typ, dat):
+    """Convert human-readable property names to internal representations."""
+    match typ:
+        case "Temperature (°C)":
+            return Temperature(dat), "temperature"
+        case "Pressure (MPa)":
+            return Pressure(dat), "pressure"
+        case "Enthalpy (kJ/kg)":
+            return Enthalpy(dat), "enthalpy"
+        case "Entropy (kJ/kg·K)":
+            return Entropy(dat), "entropy"
+        case "Internal Energy (kJ/kg)":
+            return InternalEnergy(dat), "internal_energy"
+        case "Specific Volume (m³/kg)":
+            return Specific_Volume(dat), "s_volume"
+    return None
+
+
 def determine_phase(prop_1, prop_2):
     prop_1_val = prop_1.data
     prop_2_val = prop_2.data
@@ -234,11 +252,11 @@ def main():
     s_volume = Specific_Volume(0.00061)  # m³/kg
     internal_energy = InternalEnergy(609)  # kJ/kg
 
-    calculator = SteamCalculator()
-    calculator.pressure_with_temperature(pressure=pressure, temperature=temperature)
-    calculator.display()
+    param = {"enthalpy": enthalpy, "pressure": pressure}
 
-    print(type(temperature))
+    calculator = SteamCalculator()
+    calculator.pressure_with_enthalpy(**param)
+    calculator.display()
 
     phase, x = determine_phase(prop_1=temperature, prop_2=pressure)
     print(f"Phase: {phase.name}")
