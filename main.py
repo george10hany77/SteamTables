@@ -1,5 +1,4 @@
 from pyweb import pydom
-from STD_TYPES import *
 from steam_demo import *
 
 
@@ -88,7 +87,7 @@ def get_joke(event):
         try:
             phase, x = determine_phase(prop1, prop2)
         except:
-            pass
+            phase = Phases.NOTDETERMINED
 
         if result:
             # Display the calculated properties
