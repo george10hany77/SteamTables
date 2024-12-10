@@ -1,4 +1,5 @@
-from library.iapws95 import IAPWS95
+import iapws
+from iapws import IAPWS95
 from STD_TYPES import *
 from Phases import *
 
@@ -234,4 +235,20 @@ class SteamCalculator:
     def display(self):
         if self.properties is not None:
             for key, val in self.properties.items():
-                print(f"{key}: {val}")
+              print(f"{key}: {val}")  
+
+def main():
+    pressure = Pressure(2)  # MPa
+    temperature = Temperature(205)  # °C
+    enthalpy = Enthalpy(1826.6)  # kJ/kg
+    entropy = Entropy(6.6430)  # kJ/kg·K
+    s_volume = Specific_Volume(0.002)  # m³/kg
+    internal_energy = InternalEnergy(873)  # kJ/kg
+
+    calculator = SteamCalculator()
+    calculator.temperature_with_internal_energy(temperature=temperature, internal_energy=internal_energy)
+    calculator.display()
+    calculator.temperature_with_specific_volume(temperature=temperature, s_volume=s_volume)
+    calculator.display()
+if __name__ == "__main__":
+    main()
