@@ -33,8 +33,7 @@ class InternalEnergy:
         # self.internal_energy = internal_energy  # kJ/kg
         self.data = internal_energy  # kJ/kg
 
-
-class X:
-    def __init__(self, x: float):
-        if 1.0 > x >= 0:
+class X():
+    def __init__(self, x:float):
+        if x <= 1.0 and x >= 0:
             self.x = x
