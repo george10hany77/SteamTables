@@ -128,6 +128,11 @@ def get_joke(event):
 
         if result and phase:
             # Display the calculated properties
+            xvalue = "X"
+            if(not(type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
+                type1 == "Temperature (°C)" and type2 == "Pressure (MPa)")):
+                xvalue =round(result["X"], 4)
+
             pydom["div#jokes"].html = f"""
                 <div id="jokes">
                     <table class="table">
@@ -151,7 +156,7 @@ def get_joke(event):
                             <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
-                            <td>{round(result["X"], 4)}</td>
+                            <td>{xvalue}</td>
                             <td>{str(phase.name)}</td>
                         </tr>
                     </tbody>
