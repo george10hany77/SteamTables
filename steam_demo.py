@@ -1,20 +1,21 @@
 from SteamCalculator import *
 
+
 def main():
-    pressure = Pressure(50)  # MPa
+    pressure = Pressure(0.01)  # MPa
     temperature = Temperature(122)  # °C
     enthalpy = Enthalpy(1826.6)  # kJ/kg
-    entropy = Entropy(6.6430)  # kJ/kg·K
+    entropy = Entropy(7.6)  # kJ/kg·K
     s_volume = Specific_Volume(0.00061)  # m³/kg
     internal_energy = InternalEnergy(13111)  # kJ/kg
 
-    param = {"internal_energy": internal_energy, "temperature": temperature}
+    param = {"pressure": pressure, "entropy": entropy}
 
     calculator = SteamCalculator()
-    calculator.temperature_with_internal_energy(**param)
+    calculator.pressure_with_entropy(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=internal_energy, prop_2=temperature)
+    phase, x = determine_phase(prop_1=entropy, prop_2=pressure)
     print(f"Phase: {phase.name}")
 
 
