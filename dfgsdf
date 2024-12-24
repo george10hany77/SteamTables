@@ -1,0 +1,502 @@
+[33mcommit 53cb9c2d6858e270b3b79d6f00bd10be117e3292[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Tue Dec 10 14:09:38 2024 +0100
+
+    adding SteamCalculator.py
+
+[33mcommit d797b0c0932e7d66081298f2600016dc9973d1a6[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Tue Dec 10 12:52:07 2024 +0100
+
+    removing steam_calculator.py file
+
+[33mcommit 4eb67541ad83d37c049ff10003d8e71b479d13bd[m
+Merge: 60dc764 cb700d1
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Tue Dec 10 12:49:55 2024 +0100
+
+    committing merging from origin/Gui
+
+[33mcommit 60dc76421405814c23c63aaccd503f73d0548079[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Tue Dec 10 12:13:33 2024 +0100
+
+    dfadfasdfds
+
+[33mcommit 757fe8673fbc3022f5a78b302fab30830d4bccfb[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Mon Nov 18 11:55:38 2024 +0100
+
+    adding slight modifications to the main class
+
+[33mcommit f2c9ced972cb5e0073aab327dbaaec7ca693b404[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Tue Dec 10 12:19:39 2024 +0100
+
+    updating the main branch
+
+[33mcommit 451e0c9a12f9ac15af74b6b1f40b34786f86f266[m[33m ([m[1;32mGui[m[33m)[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 20:31:09 2024 +0100
+
+    formating the project's files
+
+[33mcommit 729b7e1836f0c8311141f900f6f51da1a3e20397[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 20:15:27 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit fac38bfc717b8708f80dbb505d20df87d455db78[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 20:02:08 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit f736d278c492ee5503388383637a69c76bdf7e0c[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 19:53:31 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit fdbf40f5285d2ab84c6b41c797ed60605a706182[m
+Author: George Halim <75192838+george10hany77@users.noreply.github.com>
+Date:   Sun Dec 8 19:46:30 2024 +0100
+
+    Create README.md
+
+[33mcommit 6a14360aa68536809b779ce1fbd6db6d68854373[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 19:25:37 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 9f658e093c49f32faafa48429affe02aab209939[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 18:28:33 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 71c35268fa27b51820b6911e402142c8bf6da5d1[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 18:23:50 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 70d3a0a9ad453f6fb34c3a187f0ff2564aa2a021[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 18:06:51 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit ca093d60d754facfd0e0914c3792ad97daec9610[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 17:45:18 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 18e8fb210f3ff357fe219f3e1041686e96517b6f[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 15:06:16 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 5790428b37e58b7dfd4367620b65ed5496b54073[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 03:16:08 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit be83abecb74101bcc1f6df9ae4877cf3e1a458ef[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 03:08:33 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 9f8907c44612e6671224629d39d53bd5415d22bd[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 03:00:38 2024 +0100
+
+    final fixes to the determine_phase function
+    "preventing the stack overflow"
+
+[33mcommit 30dd53705c865270f857bee169760a23cfb930a7[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 02:15:21 2024 +0100
+
+    fixing the problem of input order in determine_phase function
+
+[33mcommit 31b8df28f9f223efd03d4eaf6005a458f61ab7e2[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 02:01:11 2024 +0100
+
+    trying something
+
+[33mcommit 632d435f705efb0522935365a26c4b831debd695[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:53:45 2024 +0100
+
+    trying something
+
+[33mcommit 9ca1ec01a7c6d0f424558718a9c9786366aa3f93[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:50:53 2024 +0100
+
+    trying something
+
+[33mcommit d625b0b90955b4ec8f281c1f5e0608392a278151[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:38:27 2024 +0100
+
+    trying something
+
+[33mcommit b1a364bb6858022d81c1c31fc310478d15144e77[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:15:59 2024 +0100
+
+    trying something
+
+[33mcommit c2e7073558b3c344b6677c564eca370d81aaace2[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:13:55 2024 +0100
+
+    trying something
+
+[33mcommit b9df6ee9c1829cbd2858f131f43bbdfea18a2866[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:12:04 2024 +0100
+
+    trying something
+
+[33mcommit e98c8282cdebe0713dd33502ff1a05896a6f90f8[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 01:10:54 2024 +0100
+
+    trying something
+
+[33mcommit ebff10d7c0f8f2eba3864d1e81373f533b0a8808[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 00:57:18 2024 +0100
+
+    fixing a bug in match case statement
+
+[33mcommit d03ad09698d4d172fa7ddbdd56b70465234541ed[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 00:52:26 2024 +0100
+
+    fixing a bug in match case statement
+
+[33mcommit 9a217722a71cf48a07b8383b78817ac00f66b8e5[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 00:48:56 2024 +0100
+
+    fixing a bug in match case statement
+
+[33mcommit e3dc659d92ebab0aa033f8f70a9a8963b644301f[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 00:46:27 2024 +0100
+
+    fixing a bug in match case statement
+
+[33mcommit a71f51f831f8a456da8a887ee40cd8ca3203996b[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sun Dec 8 00:35:32 2024 +0100
+
+    updating the phase feature
+
+[33mcommit 73543a1ee6fd2ea209f0f1239cc4e77794f0ee66[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Sat Dec 7 23:21:14 2024 +0100
+
+    changing the name of the variable that is holding the data to be consistent and make my life easier later
+
+[33mcommit fa3e3c12b195df21083317d6effbb262efe4e3d0[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Fri Dec 6 23:55:00 2024 +0100
+
+    implementing the determine_phase function
+
+[33mcommit 804c3735b4aced0228c3ed71badecf279bdd0367[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 21:49:53 2024 +0100
+
+    renaming test.py to main.py
+
+[33mcommit 7aec19f4f49013eaa20c12659ddc4789050211e5[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 21:19:34 2024 +0100
+
+    adding the quality factor
+
+[33mcommit cc2a7aad63e40e2d0ce3f622a8f7eb76f2b50503[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 21:18:50 2024 +0100
+
+    adding the quality factor
+
+[33mcommit 2044128c88fd135c264afdb1948ef4777aed61f4[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 21:13:51 2024 +0100
+
+    generalizing the unpacking method
+
+[33mcommit ea5cd1867703e7e728af286cd11a8dd4f0611aa8[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 20:57:19 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 60cf86fbdc64dde383eea89efaa6453847e33bff[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:31:33 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 8e0c4a1682e7b7f515a3f3985cbdb2122d20b348[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:27:26 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit b1d83496acf7e8777dcc9ee64a21aea793a0d322[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:22:15 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit f6a5bc0dab8b9de3e001964cb98b7a10022af892[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:19:28 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 809238ce1af1d94629ee35d2515cdaad13594d89[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:15:18 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit c13bfa97e2a08b27926080d160f461818a89a54f[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:09:12 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 37cfdb4d7ef7adc90d80faa37d009b8b63bf58d2[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:07:07 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 4d3d7c15d1e023cca8df1b6390698a9d952f2ff8[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:05:12 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 6ae6d1b8c18ae4a2681b2efb2df15ad7b432dbed[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 02:00:00 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit e1d0b86998b8c26dbedbb80e4df663e12e53cf41[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 01:55:18 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit c52dad451cf96ab4346ada2a0e0a86b9e3f6b7fe[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 01:39:34 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit 3c87b76f1e9b68c67023179f8c5668ec023b0c43[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Thu Dec 5 01:22:43 2024 +0100
+
+    adjustments the temperature
+
+[33mcommit bc71aededc34ad43bc645dadb78883c92c474be7[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 13:01:27 2024 +0100
+
+    adjustments for the table
+
+[33mcommit 808f3aa629b594529a53f72083a656bbf8298f72[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 12:51:08 2024 +0100
+
+    adjustments for the decimal points
+
+[33mcommit 8ea6237b875ec47f29d5686b3d42ed305bce4984[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 03:28:17 2024 +0100
+
+    chatGPT's code to test
+
+[33mcommit 53d87f2e7edb5a00d1bb3f87e37255ed1b68e702[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 03:22:32 2024 +0100
+
+    chatGPT's code to test
+
+[33mcommit 299d5c3130c99509baad1b0e3ad901f90c2d5ea4[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 03:11:58 2024 +0100
+
+    chatGPT's code to test
+
+[33mcommit 5d14b4225b2c65e95b8748bc7fb5e6264bd3628b[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 03:09:10 2024 +0100
+
+    chatGPT's code to test
+
+[33mcommit a19adb8e9c71a588e826e25bcfeb0f38e9fe33b2[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 03:04:59 2024 +0100
+
+    chatGPT's code to test
+
+[33mcommit 12093421e40a474c3c50a702d02722a39457a1ce[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 02:20:11 2024 +0100
+
+    fixing a problem in index.html
+
+[33mcommit 6c034225ca5bfbccc5a5d96d79388a1d687470c7[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 01:58:06 2024 +0100
+
+    fixing the sat_mixture problem
+
+[33mcommit 1a1b35bd03de95b8f139c4593ed775bf66a01f12[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 01:52:15 2024 +0100
+
+    fixing the sat_mixture problem
+
+[33mcommit ed27761c2c1755780589c90bc6a11cce0a181d44[m
+Author: George Hany <georgehany064@gmail.com>
+Date:   Wed Dec 4 01:50:10 2024 +0100
+
+    fixing the sat_mixture problem
+
+[33mcommit 7fd7beb9e54ede20a7c709d4b508151ebdc81f17[m
+Author: adamadam3d <59068057+adamadam3d@users.noreply.github.com>
+Date:   Wed Nov 20 12:08:18 2024 +0100
+
+    Update test.py
+
+[33mcommit cb700d1b47d298cb3aa6b95c71ca74beb50790db[m[33m ([m[1;32morigin/Gui[m[33m)[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Mon Nov 18 11:55:38 2024 +0100
+
+    adding slight modifications to the main class
+
+[33mcommit 2131c964d08fad13c08bc09f4bcb978636672b6f[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Mon Nov 18 11:54:39 2024 +0100
+
+    adding slight  modifications to the main class
+
+[33mcommit db389cc84f8eb0c09c1f3894d58bb51fba05f3da[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Mon Nov 18 11:48:26 2024 +0100
+
+    fixing the x in std_typed
+
+[33mcommit 2de6cee04c26d7a3823f173be127966bc7b3b4d8[m
+Author: George Halim <75192838+george10hany77@users.noreply.github.com>
+Date:   Mon Nov 18 11:38:55 2024 +0100
+
+    Create static.yml for you Adam :)
+
+[33mcommit 74ecb1ab6f896d633ee651813cb51e1a1b217210[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Mon Nov 18 09:53:47 2024 +0100
+
+    Revert "fixing routing issues"
+    
+    This reverts commit 6dc80f2d93a976ecd577befeccabb596f8eac62c.
+
+[33mcommit 77a16cde11979dbd388d64073c2f4a81783b40c6[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Mon Nov 18 09:53:22 2024 +0100
+
+    Revert "testing fixes"
+    
+    This reverts commit 57a8cb294041e8f4b80448d79af757531ced449c.
+
+[33mcommit 57a8cb294041e8f4b80448d79af757531ced449c[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Mon Nov 18 09:26:55 2024 +0100
+
+    testing fixes
+
+[33mcommit 6dc80f2d93a976ecd577befeccabb596f8eac62c[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Mon Nov 18 09:06:43 2024 +0100
+
+    fixing routing issues
+
+[33mcommit 6ca41af0c7669b25d3f2e86dac630aa5cc466ee2[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Sun Nov 17 22:11:58 2024 +0100
+
+    basic func done
+
+[33mcommit 9e3243dc4bd5e261b1ced808c43e6e5c7499e987[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Sun Nov 17 18:31:19 2024 +0100
+
+    choise
+
+[33mcommit e3014efd7f3af542b8cc73cf91e9c4ef6f3ed6d5[m
+Author: adamadam3d <adam.adam7d@gmail.com>
+Date:   Sun Nov 17 17:10:13 2024 +0100
+
+    basic gui
+
+[33mcommit 02454b31765d7dea4997e95f3939cf7c5a4b447a[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Sat Nov 16 15:46:02 2024 +0100
+
+    updating the internal energy and specific volume functions
+
+[33mcommit 9d46d13be469c426f6d17bdf129ac28937480a7e[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Sat Nov 16 14:45:58 2024 +0100
+
+    specific volume sol
+
+[33mcommit 693f9c5afb9fef1f4417e62e6bc1d6be18faf8d1[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Sun Nov 10 23:49:32 2024 +0100
+
+    v1.00
+
+[33mcommit f6496270657bff5cf16956b2009c6dd457c52811[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Sun Nov 10 22:03:46 2024 +0100
+
+    adding std file for standard types and implementing some functions "the ones that have '#' are not working yet :) "
+
+[33mcommit 60b4345a624a11505d0d605ce745f90079dc7875[m
+Author: george10hany77 <georgehany064@gmail.com>
+Date:   Sun Nov 10 17:26:15 2024 +0100
+
+    initial commit
