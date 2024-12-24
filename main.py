@@ -27,6 +27,14 @@ def get_joke(event):
     data1 = float(pydom["#in1"].value[0])
     data2 = float(pydom["#in2"].value[0])
 
+    pydom["div#jokes"].html = f"""
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <div>Error: {data1}</div>
+        </div>"""
+
     # Convert property names to internal representations
     prop1, parameter1 = switch_property(type1, data1)
     prop2, parameter2 = switch_property(type2, data2)
