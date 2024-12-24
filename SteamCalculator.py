@@ -97,16 +97,14 @@ def determine_phase_helper(prop_1, prop_2, flag):
                     raise Exception("Retry with the other properties")
 
             case _:
-                return Phases.NOTDETERMINED
-                # raise Exception("pass a valid property type")
+                raise Exception("pass a valid property type")
 
     except:
         # to handle the case when the data is not sufficient to find sat. states from prop 1
         # ,so we switch the order using this recursive call
         # wrapping the function inside a helper function to prevent the stack overflow
         if flag:
-            return Phases.NOTDETERMINED
-            # raise Exception("these properties cannot determine the phase !")
+            raise Exception("these properties cannot determine the phase !")
         flag = True
         return determine_phase_helper(prop_2, prop_1, flag)
 
