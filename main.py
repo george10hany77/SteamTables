@@ -151,7 +151,7 @@ def get_joke(event):
                     <tbody>
                         <tr>
                             <td>{round(result["Temperature (°C)"], 3)}</td>
-                            <td>{round(result["Pressure (MPa)"], 3)}</td>
+                            <td>{round(result["Pressure (MPa)"], 5)}</td>
                             <td>{round(result["Enthalpy (kJ/kg)"], 3)}</td>
                             <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
                             <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
