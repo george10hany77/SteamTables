@@ -58,7 +58,7 @@ def get_joke(event):
     # Determine which method to call based on input properties
     try:
         result = None
-        phase = None
+        phase = Phases.NOTDETERMINED
         parameters = {parameter1: prop1, parameter2: prop2}
 
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
