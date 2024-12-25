@@ -15,7 +15,7 @@ def main():
     calculator.pressure_with_entropy(**param)
     calculator.display()
 
-    phase, x = determine_phase(prop_1=entropy, prop_2=pressure)
+    phase, x = determine_phase(prop_1=pressure, prop_2=entropy)
     print(f"Phase: {phase.name}")
 
 

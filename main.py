@@ -113,7 +113,7 @@ def get_joke(event):
 
         except:
             if result:
-                x = result["X"]
+                x = result.get("X", 0)
                 if x:  # if there was an error but there is a value calculated
                     if x >= 1:
                         phase = Phases.SUPERHEATED
