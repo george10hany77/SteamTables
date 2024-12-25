@@ -26,10 +26,13 @@ def get_joke(event):
     type2 = pydom["span.two"][0].content
     data1 = float(pydom["#in1"].value[0])
     data2 = float(pydom["#in2"].value[0])
+    phase = Phases.NOTDETERMINED
+    result = None
 
     # Convert property names to internal representations
     prop1, parameter1 = switch_property(type1, data1)
     prop2, parameter2 = switch_property(type2, data2)
+    parameters = {parameter1: prop1, parameter2: prop2}
 
     if not type1 or not type2:
         pydom["div#jokes"].html = """
@@ -57,9 +60,6 @@ def get_joke(event):
 
     # Determine which method to call based on input properties
     try:
-        result = None
-        phase = Phases.NOTDETERMINED
-        parameters = {parameter1: prop1, parameter2: prop2}
 
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
                 type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
