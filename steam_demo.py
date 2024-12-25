@@ -16,7 +16,7 @@ def main():
     calculator.display()
 
     phase, x = determine_phase(prop_1=pressure, prop_2=entropy)
-    print(f"Phase: {phase.name}")
+    print(f"Phase: {phase.name}, My x: {x}")
 
 
 if __name__ == "__main__":
