@@ -60,7 +60,6 @@ def get_joke(event):
 
     # Determine which method to call based on input properties
     try:
-
         if (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
                 type1 == "Temperature (°C)" and type2 == "Pressure (MPa)"):
             result = calculator.pressure_with_temperature(**parameters)
@@ -113,7 +112,7 @@ def get_joke(event):
 
         except:
             if result:
-                x = result.get("X", 0)
+                x = result["X"]
                 if x:  # if there was an error but there is a value calculated
                     if x >= 1:
                         phase = Phases.SUPERHEATED
