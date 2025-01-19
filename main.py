@@ -21,6 +21,15 @@ def switch_property(typ, dat):
 
 
 def get_joke(event):
+
+    pydom["div#jokes"].html = """
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info:">
+            <use xlink:href="#info-circle-fill"/>
+            </svg>
+            <div></div>
+        </div>"""
+
     """Handle user input and calculate steam properties."""
     type1 = pydom["span.one"][0].content
     type2 = pydom["span.two"][0].content
