@@ -137,8 +137,7 @@ def get_joke(event):
         if result and phase:
             # Display the calculated properties
             xvalue = "X"
-            if (not (type1 == "Pressure (MPa)" and type2 == "Temperature (°C)") or (
-                    type1 == "Temperature (°C)" and type2 == "Pressure (MPa)")):
+            if phase == Phases.SATMIXTURE:
                 xvalue = round(result["X"], 4)
 
             pydom["div#jokes"].html = f"""
