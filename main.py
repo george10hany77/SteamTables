@@ -21,9 +21,9 @@ def switch_property(typ, dat):
 
 
 def get_joke(event):
-
+    # Clear the content by setting it to an empty string
     pydom["div#jokes"].html = ""
-    """Handle user input and calculate steam properties."""
+    pydom["div#jokes"].remove()  # Explicitly remove the element if needed
     type1 = pydom["span.one"][0].content
     type2 = pydom["span.two"][0].content
     data1 = float(pydom["#in1"].value[0])
