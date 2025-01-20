@@ -22,8 +22,10 @@ def switch_property(typ, dat):
 
 def get_joke(event):
     # Clear the content by setting it to an empty string
-    pydom["div#jokes"].html = ""
-    pydom["div#jokes"].remove()  # Explicitly remove the element if needed
+    parent = pydom["div#jokes"].parent  # Get the parent container
+    del pydom["div#jokes"]  # Remove the old div
+    parent.append('<div id="jokes"></div>')  # Recreate it
+
     type1 = pydom["span.one"][0].content
     type2 = pydom["span.two"][0].content
     data1 = float(pydom["#in1"].value[0])
