@@ -21,13 +21,13 @@ def switch_property(typ, dat):
 
 
 def get_joke(event):
+
     type1 = pydom["span.one"][0].content
     type2 = pydom["span.two"][0].content
     data1 = float(pydom["#in1"].value[0])
     data2 = float(pydom["#in2"].value[0])
     phase = Phases.NOTDETERMINED
     result = None
-    message = "This is george :)"
 
     # Convert property names to internal representations
     prop1, parameter1 = switch_property(type1, data1)
@@ -163,22 +163,26 @@ def get_joke(event):
         else:
             raise Exception("This calculation can't be done :(")
 
+        pydom["div#jokes"].html = f"""
+            <div id="jokes_2">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hello this is george_2 :)</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>"""
     except Exception as e:
-        message = str(e)
-
-    pydom["div#jokes"].html = f"""
-        <div id="jokes_2">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Messages</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{message}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>"""
-
+        pydom["div#jokes"].html = f"""
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>Error: {str(e)}</div>
+            </div>"""
