@@ -21,13 +21,7 @@ def switch_property(typ, dat):
 
 
 def get_joke(event):
-    pydom["div#jokes"].html = f"""
-        <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-            <use xlink:href="#exclamation-triangle-fill"/>
-            </svg>
-            <div>Error: Hello Iam george :) </div>
-        </div>"""
+
     type1 = pydom["span.one"][0].content
     type2 = pydom["span.two"][0].content
     data1 = float(pydom["#in1"].value[0])
@@ -136,6 +130,14 @@ def get_joke(event):
             xvalue = "X"
             if phase == Phases.SATMIXTURE:
                 xvalue = round(result["X"], 4)
+
+            pydom["div#jokes"].html = f"""
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill"/>
+                    </svg>
+                    <div>Error: Hello Iam george :) </div>
+                </div>"""
 
             pydom["div#jokes"].html = f"""
                 <div id="jokes">
