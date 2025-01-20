@@ -21,28 +21,24 @@ def switch_property(typ, dat):
 
 
 def get_joke(event):
+    try:
+        type1 = pydom["span.one"][0].content
+        type2 = pydom["span.two"][0].content
+        data1 = float(pydom["#in1"].value[0])
+        data2 = float(pydom["#in2"].value[0])
+    except Exception:
+        pydom["div#jokes"].html = """
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill"/>
+                        </svg>
+                        <div>Enter a number please</div>
+                    </div>"""
+        return
 
-    type1 = pydom["span.one"][0].content
-    type2 = pydom["span.two"][0].content
-    data1 = float(pydom["#in1"].value[0])
-    data2 = float(pydom["#in2"].value[0])
     phase = Phases.NOTDETERMINED
     result = None
-
-    # Convert property names to internal representations
-    prop1, parameter1 = switch_property(type1, data1)
-    prop2, parameter2 = switch_property(type2, data2)
-    parameters = {parameter1: prop1, parameter2: prop2}
-
-    if not type1 or not type2:
-        pydom["div#jokes"].html = """
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-                <use xlink:href="#exclamation-triangle-fill"/>
-                </svg>
-                <div>Invalid properties chosen</div>
-            </div>"""
-        return
+    message = "All is good :)"
 
     # Check for duplicate properties
     if type1 == type2:
@@ -55,8 +51,54 @@ def get_joke(event):
             </div>"""
         return
 
+    # Convert property names to internal representations
+    prop1, parameter1 = switch_property(type1, data1)
+    prop2, parameter2 = switch_property(type2, data2)
+
+    if (type1 is None) or (type2 is None) or (prop1 is None) or (prop2 is None):
+        pydom["div#jokes"].html = """
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <div>Invalid properties chosen</div>
+            </div>"""
+        return
+
+    parameters = {parameter1: prop1, parameter2: prop2}
+
     # Create a SteamCalculator instance
     calculator = SteamCalculator()
+
+    pydom["div#jokes"].html = f"""
+                    <div id="jokes">
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Temperature (°C)</th>
+                                <th scope="col">Pressure (MPa)</th>
+                                <th scope="col">Enthalpy (kJ/kg)</th>
+                                <th scope="col">Entropy (kJ/kg·K)</th>
+                                <th scope="col">Internal Energy (kJ/kg)</th>
+                                <th scope="col">Specific Volume (m³/kg)</th>
+                                <th scope="col">X (Quality)</th>
+                                <th scope="col">Phase</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                                <td>{"X"}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>"""
 
     # Determine which method to call based on input properties
     try:
@@ -111,6 +153,7 @@ def get_joke(event):
                 phase = Phases.NOTDETERMINED
 
         except:
+            message = "Error happened while calculating the phase!!"
             if result:
                 x = result["X"]
                 if x:  # if there was an error but there is a value calculated
@@ -163,26 +206,22 @@ def get_joke(event):
         else:
             raise Exception("This calculation can't be done :(")
 
-        pydom["div#jokes"].html = f"""
-            <div id="jokes_2">
-                <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Messages</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Hello this is george_2 :)</td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>"""
-    except Exception as e:
-        pydom["div#jokes"].html = f"""
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-                <use xlink:href="#exclamation-triangle-fill"/>
-                </svg>
-                <div>Error: {str(e)}</div>
-            </div>"""
+    except Exception:
+        message = "Error !!"
+
+    new_table = f"""
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{message}</td>
+                            </tr>
+                        </tbody>
+                        </table>"""
+
+    # accessing the second element "table" and adding to it the new table by editing the html of that element
+    pydom["div#jokes"][1].html += new_table
