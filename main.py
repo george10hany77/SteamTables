@@ -17,6 +17,8 @@ def switch_property(typ, dat):
             return InternalEnergy(dat), "internal_energy"
         case "Specific Volume (m³/kg)":
             return Specific_Volume(dat), "s_volume"
+        case "Quality (X)":
+            return X(dat), "x"
     return None
 
 
@@ -144,6 +146,12 @@ def get_joke(event):
         elif (type1 == "Entropy (kJ/kg·K)" and type2 == "Internal Energy (kJ/kg)") or (
                 type1 == "Internal Energy (kJ/kg)" and type2 == "Entropy (kJ/kg·K)"):
             result = calculator.entropy_with_internal_energy(**parameters)
+        elif (type1 == "Quality (X)" and type2 == "Temperature (°C)") or (
+                type1 == "Temperature (°C)" and type2 == "Quality (X)"):
+            result = calculator.temperature_with_x(**parameters)
+        elif (type1 == "Quality (X)" and type2 == "Pressure (MPa)") or (
+                type1 == "Pressure (MPa)" and type2 == "Quality (X)"):
+            result = calculator.pressure_with_x(**parameters)
 
         try:
             returned_phase_x = determine_phase(prop1, prop2)
@@ -153,7 +161,6 @@ def get_joke(event):
                 phase = Phases.NOTDETERMINED
 
         except:
-            message = "Error happened while calculating the phase!!"
             if result:
                 x = result["X"]
                 if x:  # if there was an error but there is a value calculated
@@ -164,14 +171,16 @@ def get_joke(event):
                     elif 1 > x > 0:
                         phase = Phases.SATMIXTURE
                     else:
+                        message = "Error happened while calculating the phase!!"
                         phase = Phases.NOTDETERMINED
             else:
+                message = "Error happened while calculating the phase!!"
                 phase = Phases.NOTDETERMINED
 
         if result and phase:
             # Display the calculated properties
             xvalue = "X"
-            if phase == Phases.SATMIXTURE:
+            if phase == Phases.SATMIXTURE or phase == Phases.SATLIQUID or phase == Phases.SATVAPOR:
                 xvalue = round(result["X"], 4)
 
             pydom["div#jokes"].html = f"""
