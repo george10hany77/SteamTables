@@ -132,14 +132,6 @@ def get_joke(event):
                 xvalue = round(result["X"], 4)
 
             pydom["div#jokes"].html = f"""
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-                    <use xlink:href="#exclamation-triangle-fill"/>
-                    </svg>
-                    <div>Error: Hello Iam george :) </div>
-                </div>"""
-
-            pydom["div#jokes"].html = f"""
                 <div id="jokes">
                     <table class="table">
                     <thead>
@@ -171,6 +163,21 @@ def get_joke(event):
         else:
             raise Exception("This calculation can't be done :(")
 
+        pydom["div#jokes"].html = f"""
+            <div id="jokes_2">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hello this is george :)</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>"""
     except Exception as e:
         pydom["div#jokes"].html = f"""
             <div class="alert alert-danger d-flex align-items-center" role="alert">
