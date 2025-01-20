@@ -23,6 +23,8 @@ def determine_key(typ):
             return "u"
         case Specific_Volume():
             return "rho"
+        case X():
+            return "x"
     return None
 
 
@@ -34,6 +36,30 @@ def determine_phase_helper(prop_1, prop_2, flag):
     prop_1_val = prop_1.data
     prop_2_val = prop_2.data
     key_prop_1 = determine_key(prop_1)
+
+    if isinstance(prop_1, X):
+        if prop_1_val > 1:
+            return Phases.SUPERHEATED, prop_1_val
+        elif prop_1_val < 0:
+            return Phases.SUBCOOLED, prop_1_val
+        elif 1 > prop_1_val > 0:
+            return Phases.SATMIXTURE, prop_1_val
+        elif prop_1_val == 0:
+            return Phases.SATLIQUID, prop_1_val
+        elif prop_1_val == 1:
+            return Phases.SATVAPOR, prop_1_val
+
+    if isinstance(prop_2, X):
+        if prop_2_val > 1:
+            return Phases.SUPERHEATED, prop_2_val
+        elif prop_2_val < 0:
+            return Phases.SUBCOOLED, prop_2_val
+        elif 1 > prop_2_val > 0:
+            return Phases.SATMIXTURE, prop_2_val
+        elif prop_2_val == 0:
+            return Phases.SATLIQUID, prop_2_val
+        elif prop_2_val == 1:
+            return Phases.SATVAPOR, prop_2_val
 
     sat_liquid = None
     sat_vapor = None
@@ -225,6 +251,18 @@ class SteamCalculator:
 
     def entropy_with_internal_energy(self, entropy: Entropy, internal_energy: InternalEnergy):  # ?
         water = IAPWS95(s=entropy.data, u=internal_energy.data)
+        self.properties = self._get_properties(water)
+        if self.properties is not None:
+            return self.properties
+
+    def pressure_with_x(self, pressure: Pressure, x: X):
+        water = IAPWS95(P=pressure.data, x=x.data)
+        self.properties = self._get_properties(water)
+        if self.properties is not None:
+            return self.properties
+
+    def temperature_with_x(self, temperature: Temperature, x: X):
+        water = IAPWS95(T=temperature.data + 273.15, x=x.data)
         self.properties = self._get_properties(water)
         if self.properties is not None:
             return self.properties
