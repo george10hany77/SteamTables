@@ -169,7 +169,7 @@ def get_joke(event):
                 phase = returned_phase_x[0]  # getting the phase from the tuple
             else:
                 message = "Error happened while calculating the phase!!"
-                phase = Phases.NOTDETERMINED
+                raise Exception("I cannot determine the phase :(")
         except:
             if result:
                 x = result["X"]
