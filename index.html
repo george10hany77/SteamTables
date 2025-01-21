@@ -47,6 +47,14 @@
             const loading = document.getElementById('loading');
             addEventListener('py:ready', () => loading.close());
             loading.showModal();
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Set default values for dropdown buttons
+                document.querySelector('.one').textContent = "Temperature (°C)";
+                document.querySelector('.two').textContent = "Pressure (MPa)";
+                document.getElementById('in1').placeholder = "Enter temperature (°C)...";
+                document.getElementById('in2').placeholder = "Enter pressure (MPa)...";
+            });
         </script>
     </head>
 
