@@ -1,5 +1,9 @@
 from pyweb import pydom
 from SteamCalculator import *
+import warnings
+
+# to ignor the warnings
+warnings.filterwarnings("ignore")
 
 
 def switch_property(typ, dat):
@@ -20,6 +24,38 @@ def switch_property(typ, dat):
         case "Quality (X)":
             return X(dat), "x"
     return None
+
+
+def create_table(Temp, Pres, Enth, Entr, Inte, Spec, x, ph):
+    pydom["div#jokes"].html = f"""
+                        <div id="jokes">
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Temperature (°C)</th>
+                                    <th scope="col">Pressure (MPa)</th>
+                                    <th scope="col">Enthalpy (kJ/kg)</th>
+                                    <th scope="col">Entropy (kJ/kg·K)</th>
+                                    <th scope="col">Internal Energy (kJ/kg)</th>
+                                    <th scope="col">Specific Volume (m³/kg)</th>
+                                    <th scope="col">X (Quality)</th>
+                                    <th scope="col">Phase</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{Temp}</td>
+                                    <td>{Pres}</td>
+                                    <td>{Enth}</td>
+                                    <td>{Entr}</td>
+                                    <td>{Inte}</td>
+                                    <td>{Spec}</td>
+                                    <td>{x}</td>
+                                    <td>{ph}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>"""
 
 
 def get_joke(event):
@@ -72,35 +108,9 @@ def get_joke(event):
     # Create a SteamCalculator instance
     calculator = SteamCalculator()
 
-    pydom["div#jokes"].html = f"""
-                    <div id="jokes">
-                        <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Temperature (°C)</th>
-                                <th scope="col">Pressure (MPa)</th>
-                                <th scope="col">Enthalpy (kJ/kg)</th>
-                                <th scope="col">Entropy (kJ/kg·K)</th>
-                                <th scope="col">Internal Energy (kJ/kg)</th>
-                                <th scope="col">Specific Volume (m³/kg)</th>
-                                <th scope="col">X (Quality)</th>
-                                <th scope="col">Phase</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                                <td>{"X"}</td>
-                            </tr>
-                        </tbody>
-                        </table>
-                    </div>"""
+    # to reset the output after each input
+    # when the calculate button is pressed it overwrites the previous output and displays the new one
+    create_table("X", "X", "X", "X", "X", "X", "X", "X")
 
     # Determine which method to call based on input properties
     try:
@@ -158,8 +168,8 @@ def get_joke(event):
             if returned_phase_x:
                 phase = returned_phase_x[0]  # getting the phase from the tuple
             else:
+                message = "Error happened while calculating the phase!!"
                 phase = Phases.NOTDETERMINED
-
         except:
             if result:
                 x = result["X"]
@@ -183,35 +193,11 @@ def get_joke(event):
             if phase == Phases.SATMIXTURE or phase == Phases.SATLIQUID or phase == Phases.SATVAPOR:
                 xvalue = round(result["X"], 4)
 
-            pydom["div#jokes"].html = f"""
-                <div id="jokes">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Temperature (°C)</th>
-                            <th scope="col">Pressure (MPa)</th>
-                            <th scope="col">Enthalpy (kJ/kg)</th>
-                            <th scope="col">Entropy (kJ/kg·K)</th>
-                            <th scope="col">Internal Energy (kJ/kg)</th>
-                            <th scope="col">Specific Volume (m³/kg)</th>
-                            <th scope="col">X (Quality)</th>
-                            <th scope="col">Phase</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{round(result["Temperature (°C)"], 3)}</td>
-                            <td>{round(result["Pressure (MPa)"], 5)}</td>
-                            <td>{round(result["Enthalpy (kJ/kg)"], 3)}</td>
-                            <td>{round(result["Entropy (kJ/kg·K)"], 3)}</td>
-                            <td>{round(result["Internal Energy (kJ/kg)"], 3)}</td>
-                            <td>{round(result["Specific Volume (m³/kg)"], 6)}</td>
-                            <td>{xvalue}</td>
-                            <td>{str(phase.name)}</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>"""
+            create_table(round(result["Temperature (°C)"], 3), round(result["Pressure (MPa)"], 5),
+                         round(result["Enthalpy (kJ/kg)"], 3), round(result["Entropy (kJ/kg·K)"], 3),
+                         round(result["Internal Energy (kJ/kg)"], 3), round(result["Specific Volume (m³/kg)"], 6),
+                         xvalue, str(phase.name))
+
         else:
             raise Exception("This calculation can't be done :(")
 
@@ -219,18 +205,18 @@ def get_joke(event):
         message = "Error !!"
 
     new_table = f"""
-                        <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{message}</td>
-                            </tr>
-                        </tbody>
-                        </table>"""
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{message}</td>
+                    </tr>
+                </tbody>
+                </table>"""
 
     # accessing the second element "table" and adding to it the new table by editing the html of that element
     pydom["div#jokes"][1].html += new_table
