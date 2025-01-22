@@ -48,53 +48,69 @@ def determine_phase_helper(prop_1, prop_2, flag):
         sat_liquid = IAPWS95(**param_1)  # Saturated liquid
         param_2 = {key_prop_1: prop_1_val, "x": 1.0}
         sat_vapor = IAPWS95(**param_2)  # Saturated vapor
+
+        p_f = None
+        p_g = None
+        x = None
+
+        match prop_2:
+            case Temperature():
+                if sat_liquid.T and sat_vapor.T:
+                    p_f = sat_liquid.T - 273.15
+                    p_g = sat_vapor.T - 273.15
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case Pressure():
+                if sat_liquid.P and sat_vapor.P:
+                    p_f = sat_liquid.P
+                    p_g = sat_vapor.P
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case Enthalpy():
+                if sat_liquid.h and sat_vapor.h:
+                    p_f = sat_liquid.h
+                    p_g = sat_vapor.h
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case Entropy():
+                if sat_liquid.s and sat_vapor.s:
+                    p_f = sat_liquid.s
+                    p_g = sat_vapor.s
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case Specific_Volume():
+                if sat_liquid.v and sat_vapor.v:
+                    p_f = sat_liquid.v
+                    p_g = sat_vapor.v
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case InternalEnergy():
+                if sat_liquid.u and sat_vapor.u:
+                    p_f = sat_liquid.u
+                    p_g = sat_vapor.u
+                else:
+                    raise Exception("Retry with the other properties")
+
+            case _:
+                return Phases.NOTDETERMINED
+                # raise Exception("pass a valid property type")
+
     except:
         # to handle the case when the data is not sufficient to find sat. states from prop 1
         # ,so we switch the order using this recursive call
         # wrapping the function inside a helper function to prevent the stack overflow
         if flag:
-            raise Exception("these properties cannot determine the phase !")
+            return Phases.NOTDETERMINED
+            # raise Exception("these properties cannot determine the phase !")
         flag = True
         return determine_phase_helper(prop_2, prop_1, flag)
 
-    p_f = None
-    p_g = None
-    x = None
-    match prop_2:
-        case Temperature():
-            if sat_liquid.T and sat_vapor.T:
-                p_f = sat_liquid.T - 273.15
-                p_g = sat_vapor.T - 273.15
-
-        case Pressure():
-            if sat_liquid.P and sat_vapor.P:
-                p_f = sat_liquid.P
-                p_g = sat_vapor.P
-
-        case Enthalpy():
-            if sat_liquid.h and sat_vapor.h:
-                p_f = sat_liquid.h
-                p_g = sat_vapor.h
-
-        case Entropy():
-            if sat_liquid.s and sat_vapor.s:
-                p_f = sat_liquid.s
-                p_g = sat_vapor.s
-
-        case Specific_Volume():
-            if sat_liquid.v and sat_vapor.v:
-                p_f = sat_liquid.v
-                p_g = sat_vapor.v
-
-        case InternalEnergy():
-            if sat_liquid.u and sat_vapor.u:
-                p_f = sat_liquid.u
-                p_g = sat_vapor.u
-
-        case _:
-            raise Exception("pass a valid property type")
-
-    if not p_f or not p_g:
+    if not p_f or not p_g:  # this condition will not happen
         raise Exception("p_f and p_g are not valid")
 
     if (p_g - p_f) > 0:
